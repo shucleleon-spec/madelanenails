@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "madelanenails",
+  "compatibility_date": "2026-10-01",
+  // Sitio estático: Cloudflare sirve los archivos de esta carpeta tal cual.
+  "assets": {
+    "directory": "./public"
+  },
+  "routes": [
+    { "pattern": "madelanenails.com", "custom_domain": true },
+    { "pattern": "www.madelanenails.com", "custom_domain": true }
+  ]
+}
