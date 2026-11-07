@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Madelane Nails</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#faf6f9">
+<meta name="description" content="Manicurista en Pampatar, Margarita. Esmalte semipermanente, nivelación rubber, polygel, softgel y jellytips. Agenda tu cita previa con Madelane Nails.">
+<link rel="icon" type="image/png" href="imagenes/favicon.png">
+<link rel="apple-touch-icon" href="imagenes/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Madelane Nails · Manicurista en Pampatar">
+<meta property="og:description" content="Semipermanente, rubber, polygel, softgel y jellytips. Agenda tu cita previa.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..500;1,6..72,200..500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: composición editorial (hero asimétrico, lista "por qué", mosaico escalonado, bandas oscuras) con la lavanda y el ciruela del logo de Madelane Nails. */
+:root{color-scheme:light;
+--canvas:#faf6f9;--surface:#fff;--soft:#f2eaf2;--hairline:#e7dde6;
+--ink:#271f2b;--stone:#5a4c5f;--ash:#8b8090;--mute:#b3a8b6;
+--plum:#76607b;--plum-deep:#4b3a50;--lav:#c09dcb;--lav-soft:#dcc6e3;--lav-pale:#efe3f2;
+--band:#2b2130;--primary:#76607b;--wa:#25a244;
+--serif:'Newsreader','Iowan Old Style',Georgia,serif;--sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+--wide:1240px}
+html{scroll-behavior:smooth;scroll-padding-top:calc(84px + env(safe-area-inset-top,0px));-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--ink);font:400 18px/1.55 var(--sans);overflow-x:clip}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--canvas);z-index:41}
+h1,h2,h3{font-family:var(--serif);font-weight:300;margin:0;line-height:1.1;text-wrap:balance}
+em{font-style:italic;color:var(--plum);font-weight:300}
+a{color:var(--stone)}
+img{max-width:100%}
+.in{max-width:var(--wide);margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.eye{margin:0 0 18px;font:700 12px/1.2 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--plum)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 28px;border:1.5px solid transparent;border-radius:9999px;background:var(--primary);color:#fff;font:600 16px/1 var(--sans);text-decoration:none;cursor:pointer;transition:transform .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px);background:var(--plum-deep)}
+.btn svg{width:20px;height:20px;fill:currentColor}
+.btn.sm{min-height:42px;padding:0 20px;font-size:14px}
+.btn.alt{background:transparent;color:var(--plum);border-color:var(--plum)}
+.btn.alt:hover{background:var(--plum);color:#fff}
+.btn.ond{background:var(--canvas);color:var(--plum-deep)}
+.btn.ond:hover{background:var(--lav-pale)}
+.ann{background:var(--plum);text-align:center;padding:10px 24px;font:700 12px/1.3 var(--sans);letter-spacing:2px;text-transform:uppercase;color:#fff;margin:0}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--canvas);border-bottom:1px solid var(--hairline);padding:10px max(24px,env(safe-area-inset-right,0px)) 10px max(24px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:14px}
+.logo{margin-right:auto;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--plum-deep)}
+.logo img{display:block;height:52px;width:auto}
+.logo span{font:400 22px/1 var(--serif);letter-spacing:.3px}
+nav{display:flex;align-items:center;gap:4px}
+nav a{padding:10px 14px;font:400 15px/1.4 var(--sans);color:var(--stone);text-decoration:none;border-radius:9999px}
+nav a:hover{background:var(--soft)}
+nav a.btn{margin-left:10px;color:#fff;padding:0 22px}
+.mb{display:none;background:none;border:1px solid var(--hairline);color:var(--stone);border-radius:9999px;width:46px;height:46px;font-size:1.2rem;cursor:pointer}
+@media(max-width:900px){.mb{display:block}nav{display:none}nav.open{display:flex;flex-direction:column;align-items:stretch;gap:0;position:absolute;top:100%;left:0;right:0;background:var(--canvas);padding:8px 24px 20px;border-bottom:1px solid var(--hairline)}nav a{padding:15px 0;border-bottom:1px solid var(--hairline);border-radius:0}nav a:hover{background:none}nav a.btn{margin:16px 0 0;border:0;min-height:50px;display:inline-flex}.logo span{font-size:19px}}
+/* hero */
+.hero{padding:clamp(40px,7vw,96px) 0 0}
+.hero-t{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:end}
+.hero h1{font-size:clamp(3rem,8.6vw,104px);line-height:1.02;color:var(--ink)}
+.hero h1 em{display:block}
+.hero-s{padding-bottom:12px;min-width:0}
+.hero-s .lead{margin:0 0 28px;font:300 24px/1.3 var(--serif);color:var(--stone);max-width:30ch}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hero-ph{position:relative;margin-top:clamp(36px,6vw,72px)}
+.ph{position:relative;overflow:hidden;height:clamp(300px,42vw,560px);border-radius:40px;background:radial-gradient(120% 90% at 18% 20%,var(--lav-pale) 0,transparent 60%),radial-gradient(90% 80% at 85% 85%,var(--lav-soft) 0,transparent 65%),var(--soft);display:grid;place-items:center}
+.ph img{width:min(52%,380px);height:auto;position:relative;z-index:1}
+.ph .ring{position:absolute;border:1px solid var(--lav);border-radius:50%;opacity:.55}
+.ph .r1{width:78%;aspect-ratio:1;left:-14%;top:-30%}.ph .r2{width:54%;aspect-ratio:1;right:-12%;bottom:-34%}
+.ph .chips{position:absolute;left:clamp(16px,4%,40px);bottom:clamp(16px,4%,36px);right:clamp(16px,4%,40px);display:flex;flex-wrap:wrap;gap:8px;z-index:2}
+.ph .chips span{padding:7px 14px;border-radius:9999px;background:var(--surface);border:1px solid var(--hairline);font:600 13px/1.2 var(--sans);color:var(--plum-deep)}
+.badge{position:absolute;right:clamp(16px,6%,80px);top:-64px;z-index:3;width:132px;height:132px;border-radius:50%;background:var(--canvas);border:1px solid var(--hairline);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:var(--stone);font:700 12px/1.25 var(--sans);letter-spacing:1px;text-transform:uppercase;transition:transform .25s,background .25s,color .25s}
+.badge i{display:block;font:300 34px/1 var(--serif);font-style:normal;margin-top:6px;color:var(--plum)}
+.badge:hover{transform:rotate(-6deg) scale(1.05);background:var(--plum);color:#fff}.badge:hover i{color:var(--lav-soft)}
+@media(max-width:900px){.hero-t{grid-template-columns:1fr}.hero-s .lead{max-width:none}.badge{width:104px;height:104px;top:-52px;font-size:11px}.ph{border-radius:24px}.ph img{width:min(62%,300px);margin-bottom:56px}}
+/* por qué */
+.why{padding:clamp(72px,11vw,160px) 0 clamp(56px,8vw,120px)}
+.why .in{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,7vw,120px);align-items:start}
+.why .hd{position:sticky;top:120px}
+.why h2{font-size:clamp(2.6rem,5.6vw,68px)}
+.wl{border-top:1px solid var(--hairline)}
+.wi{display:grid;grid-template-columns:56px 1fr;gap:12px;padding:34px 0;border-bottom:1px solid var(--hairline)}
+.wi .n{display:block;width:28px;height:1px;background:var(--lav);margin-top:1.1em}
+.wi h3{font:400 clamp(26px,3vw,36px)/1.2 var(--serif);margin:0 0 10px}
+.wi p{margin:0;color:var(--stone);max-width:44ch}
+@media(max-width:900px){.why .in{grid-template-columns:1fr}.why .hd{position:static}.wi{grid-template-columns:44px 1fr;padding:26px 0}.wi .n{width:20px}}
+/* servicios */
+.svhd{padding-bottom:clamp(32px,5vw,64px)}
+.svhd h2{font-size:clamp(2.8rem,7vw,80px);line-height:1.05;max-width:12ch}
+.svcnote{margin:20px 0 0;color:var(--stone);max-width:46ch}
+.svcnote b{color:var(--plum-deep);font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start;padding-bottom:clamp(72px,10vw,140px)}
+.tiles .svc:nth-child(3n+2){margin-top:44px}
+.svc{text-decoration:none;display:flex;flex-direction:column;min-height:260px;padding:26px;background:var(--surface);border:1px solid var(--hairline);border-radius:24px;color:var(--ink);transition:transform .3s,box-shadow .3s}
+.svc:hover,.svc:focus-visible{transform:translateY(-6px);box-shadow:0 18px 40px rgba(75,58,80,.14)}
+.svc .top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.svc .nm{font:400 clamp(24px,2.3vw,30px)/1.15 var(--serif);min-width:0}
+.svc .pr{font:300 44px/1 var(--serif);color:var(--plum);white-space:nowrap;font-variant-numeric:tabular-nums}
+.svc .pr small{font-size:.5em;vertical-align:.7em;margin-right:2px}
+.svc .pk{align-self:flex-start;margin:14px 0 0;padding:5px 12px;border:1px solid var(--lav);border-radius:9999px;font:700 11px/1.2 var(--sans);letter-spacing:1px;text-transform:uppercase;color:var(--plum)}
+.svc .ds{margin:14px 0 22px;font-size:16px;line-height:1.5;color:var(--stone)}
+.svc .go{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--hairline);font:700 12px/1.2 var(--sans);letter-spacing:1px;text-transform:uppercase;color:var(--ink)}
+.svc .go i{font-style:normal;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--plum);color:var(--plum);font-size:18px;transition:background .25s,color .25s,transform .25s}
+.svc:hover .go i{background:var(--plum);color:#fff;transform:translateX(4px)}
+@media(max-width:1000px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.tiles .svc:nth-child(3n+2){margin-top:0}.tiles .svc:nth-child(2n){margin-top:36px}}
+@media(max-width:620px){.tiles{grid-template-columns:1fr;gap:16px}.tiles .svc:nth-child(n){margin-top:0}.svc{min-height:0}}
+/* extras */
+.ext{background:var(--plum-deep);color:#fff;padding:clamp(72px,10vw,140px) 0}
+.ext .in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(28px,6vw,96px);align-items:start}
+.ext .eye{color:var(--lav-soft)}
+.ext h2{font-size:clamp(2.6rem,6.4vw,84px);line-height:1.03;color:#fff}
+.ext h2 em{color:var(--lav-soft);display:block}
+.ext .side{margin:26px 0 0;font:300 22px/1.35 var(--serif);color:#eadff0;max-width:28ch}
+.xl{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.2);min-width:0}
+.xl li{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.2)}
+.xl span{font:400 clamp(20px,2.2vw,26px)/1.3 var(--serif);min-width:0}
+.xl span small{display:block;font:400 15px/1.4 var(--sans);color:var(--lav-soft);margin-top:4px}
+.xl b{font:300 clamp(28px,3vw,38px)/1 var(--serif);color:var(--lav-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.bcv{margin:28px 0 0;display:inline-flex;gap:10px;align-items:center;padding:10px 18px;border:1px solid rgba(255,255,255,.3);border-radius:9999px;font:600 14px/1.3 var(--sans);color:#fff}
+@media(max-width:900px){.ext .in{grid-template-columns:1fr}}
+/* cómo agendar */
+.steps{padding:clamp(72px,11vw,160px) 0}
+.steps h2{font-size:clamp(2.6rem,5.6vw,68px);max-width:14ch;margin-bottom:clamp(32px,5vw,64px)}
+.stg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;counter-reset:s}
+.st{padding:30px 0 0;border-top:1px solid var(--plum);min-width:0}
+.st::before{counter-increment:s;content:"Paso " counter(s);display:block;margin-bottom:16px;font:700 12px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--plum)}
+.st h3{font:400 clamp(24px,2.6vw,32px)/1.2 var(--serif);margin:0 0 10px}
+.st p{margin:0;color:var(--stone);max-width:34ch}
+@media(max-width:800px){.stg{grid-template-columns:1fr;gap:8px}.st{padding:24px 0}}
+/* faq */
+.faq{padding:0 0 clamp(72px,11vw,160px)}
+.faq .in{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,7vw,120px);align-items:start}
+.faq .hd{position:sticky;top:120px}
+.faq h2{font-size:clamp(2.6rem,5.2vw,68px)}
+details{border-top:1px solid var(--hairline)}
+details:last-child{border-bottom:1px solid var(--hairline)}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;min-height:48px;font:400 clamp(20px,2vw,24px)/1.3 var(--serif)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";flex:none;display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--plum);border-radius:50%;font:300 24px/1 var(--sans);color:var(--plum);transition:background .25s,color .25s}
+details[open] summary::after{content:"–";background:var(--plum);color:#fff}
+details p{margin:0 0 26px;color:var(--stone);font-size:17px;max-width:56ch}
+@media(max-width:900px){.faq .in{grid-template-columns:1fr}.faq .hd{position:static}}
+/* contacto */
+.dk{background:var(--band);color:#fff}
+.contact{padding:clamp(72px,10vw,140px) 0 clamp(48px,6vw,80px)}
+.contact .eye{color:var(--lav-soft)}
+.contact h2{font-size:clamp(2.6rem,6vw,80px);color:#fff;margin-bottom:clamp(32px,5vw,64px)}
+.contact h2 em{color:var(--lav-soft)}
+.cg2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.cg2>.card:nth-child(2){margin-top:44px}
+.card{background:var(--canvas);color:var(--ink);border-radius:24px;padding:28px;box-shadow:0 12px 40px rgba(0,0,0,.35);min-width:0}
+.card h3{font:400 32px/1.2 var(--serif);margin:0 0 18px}
+.pill{display:flex;align-items:center;gap:14px;margin:0 0 10px;padding:8px 16px 8px 8px;border:1px solid var(--hairline);border-radius:9999px;text-decoration:none;color:var(--ink);background:var(--surface);transition:transform .2s,border-color .2s}
+.pill:hover{border-color:var(--plum);transform:translateY(-2px)}
+.pill .ic{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;background:var(--wa)}
+.pill .ic svg{width:20px;height:20px;fill:currentColor}
+.pill .tx{display:flex;flex-direction:column;min-width:0;line-height:1.3}
+.pill .l{font:700 11px/1.2 var(--sans);letter-spacing:1px;text-transform:uppercase;color:var(--ash)}
+.pill .v{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+.addr{display:flex;gap:12px;align-items:flex-start;margin:18px 0 0;color:var(--stone);font-size:16px}
+.addr svg{flex:none;width:20px;height:20px;color:var(--plum);margin-top:3px}
+.addr b{color:var(--ink);font-weight:600}
+.card ul{list-style:none;margin:0;padding:0}
+.card li{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--hairline);font-size:17px;color:var(--stone)}
+.card li:last-child{border-bottom:0}
+.card li::before{content:"";flex:none;width:8px;height:8px;margin-top:.55em;border-radius:50%;background:var(--lav)}
+@media(max-width:900px){.cg2{grid-template-columns:1fr}.cg2>.card:nth-child(2){margin-top:0}}
+footer{padding:0 0 calc(44px + env(safe-area-inset-bottom,0px));color:var(--mute);font-size:14px}
+footer .in::before{content:"";display:block;height:1px;background:rgba(255,255,255,.16);margin-bottom:28px}
+footer p{margin:0}
+.fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.fab svg{width:30px;height:30px;fill:#fff}
+@media(max-width:600px){body{font-size:17px}.hero-s .lead{font-size:22px}.card{padding:22px}.hero-s .row .btn{flex:1 1 100%}}
+:focus-visible{outline:2px solid var(--plum);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<p class="ann">Previa cita · Pampatar, Isla de Margarita</p>
+<header>
+  <a class="logo" href="#top" aria-label="Madelane Nails, inicio"><img src="imagenes/logo.png" alt="" width="480" height="458"><span>Madelane Nails</span></a>
+  <nav id="nv"><a href="#servicios">Servicios</a><a href="#extras">Extras</a><a href="#agendar">Cómo agendar</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a><a class="btn sm" href="#servicios">Agendar cita</a></nav>
+  <button class="mb" id="mb" type="button" aria-label="Menú" aria-expanded="false">☰</button>
+</header>
+
+<main>
+<div class="hero" id="top"><div class="in">
+  <div class="hero-t">
+    <div>
+      <p class="eye">Manicurista · Pampatar</p>
+      <h1>Tus uñas, <em>impecables</em></h1>
+    </div>
+    <div class="hero-s">
+      <p class="lead">Esmalte semipermanente, nivelación rubber, polygel, softgel y jellytips, con limpieza de cutículas en seco y mucho detalle.</p>
+      <div class="row"><a class="btn" href="#servicios">Agendar mi cita</a><a class="btn alt" href="#extras">Ver precios</a></div>
+    </div>
+  </div>
+  <div class="hero-ph">
+    <div class="ph"><span class="ring r1"></span><span class="ring r2"></span><img src="imagenes/logo.png" alt="Logo de Madelane Nails, manicurista" width="480" height="458">
+      <div class="chips"><span>Semipermanente</span><span>Rubber</span><span>Polygel</span><span>Softgel</span><span>Jellytips</span><span>Opción vegana</span></div></div>
+    <a class="badge" href="#servicios"><span>Ver servicios</span><i aria-hidden="true">↓</i></a>
+  </div>
+</div></div>
+
+<div class="why"><div class="in">
+  <div class="hd"><p class="eye">Por qué elegirme</p><h2>Manos cuidadas <em>con cariño</em></h2></div>
+  <div class="wl">
+    <div class="wi"><span class="n" aria-hidden="true"></span><div><h3>Cutícula en seco</h3><p>Trabajo la cutícula sin remojo, para un acabado más limpio y un esmalte que dura más.</p></div></div>
+    <div class="wi"><span class="n" aria-hidden="true"></span><div><h3>Todo incluido</h3><p>Cada servicio incluye limpieza de cutículas, limado y esmaltado. Sin cargos sorpresa.</p></div></div>
+    <div class="wi"><span class="n" aria-hidden="true"></span><div><h3>Atención personalizada</h3><p>Trabajo con cita previa, así tu turno es solo tuyo y sin apuros.</p></div></div>
+  </div>
+</div></div>
+
+<section id="servicios">
+  <div class="in svhd"><p class="eye">Servicios y precios</p><h2>Elige tu <em>manicura</em></h2><p class="svcnote">Todos los servicios incluyen <b>limpieza de cutículas (sin remojo), limado y esmaltado</b>. Toca un servicio para agendarlo.</p></div>
+  <div class="in tiles" id="tiles"></div>
+</section>
+
+<section class="ext" id="extras"><div class="in">
+  <div>
+    <p class="eye">Adicionales</p>
+    <h2>Extras <em>y detalles</em></h2>
+    <p class="side">Súmalos a tu servicio o pídelos por separado. Los diseños dependen de lo que elijas.</p>
+    <p class="bcv">Precios en dólares, a tasa BCV</p>
+  </div>
+  <ul class="xl">
+    <li><span>Solo limpieza de cutícula y limado</span><b>$3</b></li>
+    <li><span>Reparación o alargamiento de uña<small>Con polygel o softgel</small></span><b>$1</b></li>
+    <li><span>Retiro de esmalte o recubrimiento</span><b>$1</b></li>
+    <li><span>Diseños y efectos<small>Según el diseño</small></span><b>$1–2</b></li>
+  </ul>
+</div></section>
+
+<section class="steps" id="agendar"><div class="in">
+  <p class="eye">Cómo agendar</p>
+  <h2>Tu cita en <em>tres pasos</em></h2>
+  <div class="stg">
+    <div class="st"><h3>Escríbeme</h3><p>Mándame un WhatsApp con el servicio que quieres.</p></div>
+    <div class="st"><h3>Elige tu cupo</h3><p>Te envío la agenda con los cupos disponibles y escoges el que te quede mejor.</p></div>
+    <div class="st"><h3>Recibe la ubicación</h3><p>Al confirmar tu cita te hago llegar la ubicación exacta en Pampatar.</p></div>
+  </div>
+</div></section>
+
+<section id="faq" class="faq"><div class="in">
+  <div class="hd"><p class="eye">Preguntas frecuentes</p><h2>Resuelvo tus <em>dudas</em></h2></div>
+  <div>
+    <details><summary>¿Qué incluyen los servicios?</summary><p>Todos incluyen limpieza de cutículas sin remojo, limado y esmaltado. Si solo quieres limpieza y limado, cuesta $3.</p></details>
+    <details><summary>¿Cómo se pagan los precios en dólares?</summary><p>Los precios están en dólares y se calculan a la tasa del BCV del día de tu cita.</p></details>
+    <details><summary>¿Qué diferencia hay entre polygel, softgel y jellytips?</summary><p>El polygel se moldea sobre la uña para reforzarla o alargarla. El softgel y los jellytips son tips de gel suave que se adhieren a tu uña para alargarla de forma ligera y rápida. Si no sabes cuál te conviene, escríbeme y te oriento.</p></details>
+    <details><summary>¿Para qué sirve la nivelación rubber?</summary><p>La base rubber es flexible y algo más gruesa: nivela la superficie y refuerza la uña natural, ideal si tus uñas son finas o se quiebran.</p></details>
+    <details><summary>¿Puedo ir con esmalte puesto?</summary><p>Sí. El retiro de esmalte o recubrimiento cuesta $1 adicional.</p></details>
+    <details><summary>¿Haces diseños?</summary><p>Sí, diseños y efectos desde $1 hasta $2, según lo que elijas. Puedes mandarme una foto de referencia.</p></details>
+    <details><summary>¿Dónde atiendes?</summary><p>En Pampatar, Isla de Margarita. La ubicación exacta te la envío por mensaje al confirmar tu cita.</p></details>
+  </div>
+</div></section>
+</main>
+
+<div class="dk">
+<section id="contacto" class="contact"><div class="in">
+  <p class="eye">Estoy para ti</p><h2>Agenda <em>tu cita</em></h2>
+  <div class="cg2">
+    <div class="card"><h3>Escríbeme</h3>
+      <a class="pill" id="cWa" target="_blank" rel="noopener" href="https://wa.me/584141887538"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.3 2.5 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></span><span class="tx"><span class="l">WhatsApp</span><span class="v">0414-1887538</span></span></a>
+      <div class="addr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span><b>Pampatar, Isla de Margarita</b><br>La ubicación exacta te llega por mensaje al confirmar.</span></div>
+    </div>
+    <div class="card"><h3>Antes de tu cita</h3>
+      <ul><li>Atiendo solo con cita previa.</li><li>Pídeme la agenda con los cupos disponibles.</li><li>Si traes esmalte puesto, avísame para sumar el retiro.</li><li>¿Quieres un diseño? Mándame una foto de referencia.</li></ul>
+    </div>
+  </div>
+</div></section>
+<footer><div class="in"><p>© <span id="yr">2026</span> Madelane Nails · Manicurista · Pampatar</p></div></footer>
+</div>
+
+<a class="fab" id="fab" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" href="https://wa.me/584141887538"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.3 2.5 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
+
+<script>
+/* SERVICIOS: [nombre, precio, etiqueta, descripción]. Para cambiar un precio, edítalo aquí. */
+const SERVICES=[
+ ['Esmalte semipermanente de manos',8,'','Color brillante y duradero que no se descascara en semanas.'],
+ ['Esmalte semipermanente de pies',8,'','El mismo acabado duradero, para unos pies impecables.'],
+ ['Nivelación rubber',10,'','Base flexible que nivela y refuerza tu uña natural.'],
+ ['Aplicación de polygel',12,'','Uñas reforzadas o alargadas, moldeadas a tu gusto.'],
+ ['Jellytips o softgel',14,'','Alargamiento ligero con tips de gel suave, natural y cómodo.'],
+ ['Esmaltado semipermanente vegano',10,'Vegano','Fórmula libre de ingredientes de origen animal.']];
+const WA='584141887538';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const wa=t=>'https://wa.me/'+WA+'?text='+encodeURIComponent(t);
+document.getElementById('tiles').innerHTML=SERVICES.map(([n,p,k,d])=>'<a class="svc" target="_blank" rel="noopener" href="'+wa('Hola Madelane, quisiera agendar: '+n+'. ¿Qué cupos tienes disponibles?')+'"><span class="top"><span class="nm">'+esc(n)+'</span><span class="pr"><small>$</small>'+p+'</span></span>'+(k?'<span class="pk">'+esc(k)+'</span>':'')+'<span class="ds">'+esc(d)+'</span><span class="go"><span>Agendar este servicio</span><i aria-hidden="true">→</i></span></a>').join('');
+const hi=wa('Hola Madelane, quisiera agendar una cita. ¿Qué cupos tienes disponibles?');
+document.getElementById('fab').href=hi;document.getElementById('cWa').href=hi;
+document.getElementById('yr').textContent=new Date().getFullYear();
+const mb=document.getElementById('mb'),nv=document.getElementById('nv');
+mb.addEventListener('click',()=>{const o=nv.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+nv.addEventListener('click',e=>{if(e.target.closest('a'))nv.classList.remove('open')});
+</script>
+</body>
+</html>
