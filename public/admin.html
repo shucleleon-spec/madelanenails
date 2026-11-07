@@ -298,8 +298,7 @@ function card(x){
   let a='';
   if(x.status==='pendiente')a+=B('confirmar','✓ Confirmar','ok');
   if(x.status==='confirmada'&&x.date<=TODAY)a+=B('completar','Completada','ok')+B('noasistio','No asistió');
-  if(x.status==='completada')a+=B('otra','Agendar otra','ok');
-  if(x.status!=='completada')a+=B('reagendar','Reagendar');
+  if(x.status==='completada')a+=B('otra','Reagendar','ok');
   a+=B('cambiar','Cambiar cita');
   if(waNum)a+='<a class="btn wa sm" target="_blank" rel="noopener" href="https://wa.me/'+waNum+'?text='+encodeURIComponent(msg)+'">'+WA_SVG+' WhatsApp</a>';
   a+='<span class="sep"></span>';
@@ -337,7 +336,7 @@ function editor(x,pre){
   const s0=x?x.service:(pre.service||svcs[0].n),d0=x?x.date:(pre.date||TODAY),t0=x?x.time:(pre.time||''),dur0=x?x.dur:((svcs.find(s=>s.n===s0)||svcs[0]).dur||60);
   const known=svcs.some(s=>s.n===s0);
   const m=document.createElement('div');m.className='modal';m.setAttribute('role','dialog');m.setAttribute('aria-modal','true');
-  m.innerHTML='<div class="sheet"><h2>'+(isNew?(pre.name?'Agendar otra cita':'Nueva cita'):(move?'Reagendar':'Cambiar cita')+' '+code(x.id))+'</h2><p style="margin:0;color:var(--stone);font-size:15px">'+(isNew?'Queda confirmada al guardar.':move?(x.status==='pendiente'||x.status==='confirmada'?'Elige el nuevo día y hora. La clienta recibe un correo con el horario nuevo.':'Elige el nuevo día y hora. La cita vuelve a quedar confirmada y la clienta recibe un correo.'):'Cambia el servicio, los datos o el horario. Si cambias el día o la hora, la clienta recibe un correo.')+'</p>'+
+  m.innerHTML='<div class="sheet"><h2>'+(isNew?(pre.name?'Reagendar a '+esc(pre.name.split(' ')[0]):'Nueva cita'):(move?'Reagendar':'Cambiar cita')+' '+code(x.id))+'</h2><p style="margin:0;color:var(--stone);font-size:15px">'+(isNew?(pre.name?'Nueva cita con sus datos ya puestos. Elige el día y la hora; queda confirmada al guardar.':'Queda confirmada al guardar.'):move?(x.status==='pendiente'||x.status==='confirmada'?'Elige el nuevo día y hora. La clienta recibe un correo con el horario nuevo.':'Elige el nuevo día y hora. La cita vuelve a quedar confirmada y la clienta recibe un correo.'):'Cambia el servicio, los datos o el horario. Si cambias el día o la hora, la clienta recibe un correo.')+'</p>'+
   '<div class="g2"><div><label class="f" for="en">Nombre</label><input class="i" id="en" value="'+esc(x?x.name:(pre.name||''))+'"></div>'+
   '<div><label class="f" for="ep">Teléfono</label><input class="i" id="ep" type="tel" value="'+esc(x?x.phone:(pre.phone||''))+'"></div>'+
   '<div class="full"><label class="f" for="ee">Correo <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ash)">(opcional)</span></label><input class="i" id="ee" type="email" value="'+esc(x?x.email:(pre.email||''))+'"></div>'+
@@ -425,7 +424,7 @@ async function renderAgenda(){
     const a=r.x.a,ph=(a.phone||'').replace(/\D/g,''),wn=ph.startsWith('0')?'58'+ph.slice(1):ph;
     const msg='Hola '+a.name.split(' ')[0]+', te escribe Madelane de Madelane Nails sobre tu cita del '+longDate(a.date)+' a las '+f12(a.time)+' ('+a.service+').';
     return '<div class="sl"><div class="t">'+f12(a.time)+'<small>a '+f12(hmOf(r.x.e))+'</small></div><div class="b ev st-'+a.status+'"><div class="eh"><b>'+esc(a.name)+'</b><span class="pill p-'+a.status+'">'+ST[a.status]+'</span></div><div class="es">'+esc(a.service)+' · '+esc(durTxt(+a.dur||60))+'</div>'+(a.notes?'<div class="nt">'+esc(a.notes)+'</div>':'')+
-      '<div class="ea">'+(a.status==='pendiente'?'<button type="button" class="btn ok" data-a="confirmar" data-id="'+a.id+'">✓ Confirmar</button>':'')+'<button type="button" class="btn alt" data-a="reagendar" data-id="'+a.id+'">Reagendar</button><button type="button" class="btn alt" data-a="cambiar" data-id="'+a.id+'">Cambiar cita</button>'+(wn?'<a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/'+wn+'?text='+encodeURIComponent(msg)+'">'+WA_SVG+' WhatsApp</a>':'')+'</div></div></div>';
+      '<div class="ea">'+(a.status==='pendiente'?'<button type="button" class="btn ok" data-a="confirmar" data-id="'+a.id+'">✓ Confirmar</button>':'')+(a.status==='confirmada'&&a.date<=TODAY?'<button type="button" class="btn ok" data-a="completar" data-id="'+a.id+'">Completada</button>':'')+(a.status==='completada'?'<button type="button" class="btn ok" data-a="otra" data-id="'+a.id+'">Reagendar</button>':'')+'<button type="button" class="btn alt" data-a="cambiar" data-id="'+a.id+'">Cambiar cita</button>'+(wn?'<a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/'+wn+'?text='+encodeURIComponent(msg)+'">'+WA_SVG+' WhatsApp</a>':'')+'</div></div></div>';
   }).join('');
   const lab=(calSel===TODAY?'Hoy · ':calSel===tm?'Mañana · ':'')+longDate(calSel);
   const sum=(dl.length?dl.length+(dl.length===1?' cita':' citas'):'Sin citas')+(h[0]?' · '+libres+(libres===1?' espacio libre':' espacios libres'):' · Día cerrado')+(dl.some(a=>a.status==='pendiente')?' · alguna por confirmar':'');
