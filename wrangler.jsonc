@@ -11,7 +11,7 @@
   "d1_databases": [
     { "binding": "DB", "database_name": "madelanenails-db", "database_id": "5351d07b-2a0d-4c54-a8aa-4a891d5a4da2" }
   ],
-  // Cada hora: a partir de las 6 p. m. de Caracas manda recordatorios y el resumen de mañana (una vez al día).
+  // Cada hora: a partir de las 7 p. m. de Caracas manda recordatorios y el resumen de mañana (una vez al día).
   "triggers": { "crons": ["7 * * * *"] },
   "vars": {
     "NOTIFY_EMAIL": "Madelaneserra@hotmail.com",

@@ -11,7 +11,7 @@ const ACTIVE = ["pendiente", "confirmada"];
 const MIN_FILL_MS = 4000;      // un formulario llenado en menos tiempo es de un bot
 const TRAP_LIMIT = 3;          // trampas activadas en 24 h antes de bloquear la IP
 const MAX_PENDING_PER_PERSON = 2;
-const DAILY_HOUR = 18;         // hora de Caracas a la que salen recordatorios y resumen
+const DAILY_HOUR = 19;         // 7 p. m. de Caracas: recordatorios a las clientas y resumen de mañana a Madelane
 const SESSION_HOURS = 12;
 
 // Valores iniciales. Madelane puede cambiarlos desde el panel admin.
