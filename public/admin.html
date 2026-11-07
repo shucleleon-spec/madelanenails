@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Panel · Madelane Nails</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#faf6f9">
+<link rel="icon" type="image/png" href="imagenes/favicon.png">
+<link rel="apple-touch-icon" href="imagenes/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;
+--canvas:#faf6f9;--surface:#fff;--soft:#f2eaf2;--hairline:#e7dde6;--field:#d9ccd8;
+--ink:#271f2b;--stone:#5a4c5f;--ash:#8b8090;
+--plum:#76607b;--plum-deep:#4b3a50;--lav:#c09dcb;--lav-pale:#efe3f2;
+--wa:#25a244;--error:#c2362b;--err-bg:#fbecea;
+--pend:#9a5b12;--pend-bg:#fdf1de;--conf:#2f7a47;--conf-bg:#e5f3e9;--canc:#8b8090;--canc-bg:#efecef;--done:#3d5d8f;--done-bg:#e6edf7;
+--serif:'Newsreader','Iowan Old Style',Georgia,serif;--sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);color:var(--ink);font:400 16px/1.5 var(--sans);overflow-x:clip}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--canvas);z-index:41}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.15}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border:1.5px solid transparent;border-radius:9999px;background:var(--plum);color:#fff;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--plum-deep)}
+.btn:disabled{opacity:.5;cursor:wait}
+.btn.alt{background:var(--surface);color:var(--plum);border-color:var(--field)}.btn.alt:hover{border-color:var(--plum);background:var(--lav-pale)}
+.btn.ok{background:var(--conf)}.btn.ok:hover{background:#235e36}
+.btn.wa{background:var(--wa)}.btn.wa:hover{background:#1d8638}
+.btn.dg{background:var(--surface);color:var(--error);border-color:#efc7c2}.btn.dg:hover{background:var(--err-bg)}
+.btn.sm{min-height:38px;padding:0 14px;font-size:14px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--canvas);border-bottom:1px solid var(--hairline)}
+header .wrap{display:flex;align-items:center;gap:12px;padding-block:10px}
+.logo{margin-right:auto;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--plum-deep)}
+.logo img{height:44px;width:auto;display:block}
+.logo span{font:400 20px/1 var(--serif)}
+.logo small{display:block;font:700 10px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--plum);margin-top:4px}
+.tabs{display:flex;gap:4px;padding-block:12px 0;overflow-x:auto}
+.tabs button{border:0;background:none;padding:10px 16px;border-radius:9999px;color:var(--stone);font-weight:600;cursor:pointer;white-space:nowrap}
+.tabs button.on{background:var(--plum);color:#fff}
+main{padding-block:24px 80px}
+/* login */
+.login{max-width:420px;margin:8vh auto 0;background:var(--surface);border:1px solid var(--hairline);border-radius:24px;padding:32px;box-shadow:0 20px 50px rgba(75,58,80,.08)}
+.login img{width:110px;height:auto;display:block;margin:0 auto 12px}
+.login h1{text-align:center;font-size:30px;margin-bottom:20px}
+label.f{display:block;font:700 12px/1.3 var(--sans);letter-spacing:1px;text-transform:uppercase;margin:14px 0 6px}
+.i,select.i,textarea.i{width:100%;min-height:46px;padding:10px 14px;border:1px solid var(--field);border-radius:12px;background:var(--canvas);font-size:16px}
+textarea.i{min-height:76px;resize:vertical}
+.i:focus{outline:none;border-color:var(--plum);background:var(--surface);box-shadow:0 0 0 3px var(--lav-pale)}
+.hp{position:absolute;left:-9999px}
+.msg{margin:14px 0 0;padding:12px 14px;border-radius:12px;font-size:15px}
+.msg.e{background:var(--err-bg);color:var(--error)}
+.msg.s{background:var(--conf-bg);color:var(--conf)}
+/* resumen */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:20px}
+.stat{background:var(--surface);border:1px solid var(--hairline);border-radius:18px;padding:16px 18px;min-width:0;text-align:left;cursor:pointer}
+.stat:hover{border-color:var(--plum)}
+.stat b{display:block;font:300 38px/1 var(--serif);color:var(--plum);font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--stone)}
+.stat.warn b{color:var(--pend)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-right:auto}
+.chips button{border:1px solid var(--field);background:var(--surface);border-radius:9999px;padding:8px 14px;font-size:14px;font-weight:600;color:var(--stone);cursor:pointer}
+.chips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chk{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--stone);cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--plum)}
+/* lista de citas */
+.day{margin:26px 0 10px;display:flex;align-items:baseline;gap:10px;font:400 22px/1.2 var(--serif)}
+.day small{font:600 13px/1 var(--sans);color:var(--ash)}
+.day .tg{font:700 11px/1 var(--sans);letter-spacing:1px;text-transform:uppercase;color:#fff;background:var(--plum);padding:5px 9px;border-radius:99px}
+.ap{display:grid;grid-template-columns:112px minmax(0,1fr) auto;gap:16px;align-items:start;background:var(--surface);border:1px solid var(--hairline);border-radius:18px;padding:16px 18px;margin-bottom:10px}
+.ap.st-pendiente{border-left:4px solid #e0a54b}
+.ap.st-confirmada{border-left:4px solid var(--conf)}
+.ap.st-cancelada,.ap.st-no_asistio{opacity:.7}
+.ap .tm{font:400 22px/1.1 var(--serif);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ap .tm small{display:block;font:500 13px/1.3 var(--sans);color:var(--ash);margin-top:4px}
+.ap .who{min-width:0}
+.ap .nm{font-weight:700;font-size:17px;overflow-wrap:anywhere}
+.ap .sv{color:var(--plum-deep);margin-top:2px}
+.ap .ct{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:6px;font-size:14px;color:var(--stone)}
+.ap .ct a{color:var(--stone)}
+.ap .nt{margin-top:8px;padding:8px 12px;border-radius:10px;background:var(--soft);font-size:14px;color:var(--stone);overflow-wrap:anywhere}
+.ap .side{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.pill{display:inline-block;padding:5px 11px;border-radius:99px;font:700 11px/1.2 var(--sans);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.p-pendiente{background:var(--pend-bg);color:var(--pend)}.p-confirmada{background:var(--conf-bg);color:var(--conf)}.p-cancelada{background:var(--canc-bg);color:var(--canc)}.p-completada{background:var(--done-bg);color:var(--done)}.p-no_asistio{background:var(--err-bg);color:var(--error)}
+.acts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:1px solid var(--hairline)}
+.acts .sep{flex:1}
+.cf{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px;border-radius:12px;background:var(--err-bg);color:var(--error);font-size:14px;font-weight:600}
+.empty{padding:40px 20px;text-align:center;color:var(--ash);background:var(--surface);border:1px dashed var(--field);border-radius:18px}
+@media(max-width:700px){.stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.stat{padding:12px}.stat b{font-size:30px}.stat span{font-size:12px}
+ .ap{grid-template-columns:minmax(0,1fr) auto;gap:10px}.ap .tm{grid-column:1/2}.ap .side{grid-column:2/3;grid-row:1/2}.ap .who{grid-column:1/-1}.acts .btn{flex:1 1 auto}.acts .sep{display:none}}
+/* editor (modal) */
+.modal{position:fixed;inset:0;z-index:60;background:rgba(39,31,43,.55);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:max(16px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.sheet{width:100%;max-width:640px;margin:auto;background:var(--surface);border-radius:24px;padding:26px}
+.sheet h2{font-size:28px;margin-bottom:6px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+.g2 .full{grid-column:1/-1}
+@media(max-width:560px){.g2{grid-template-columns:1fr}.sheet{padding:20px}}
+.tms{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tms button{min-height:40px;padding:0 14px;border:1px solid var(--field);border-radius:99px;background:var(--surface);cursor:pointer;font-size:14px;font-variant-numeric:tabular-nums}
+.tms button.on{background:var(--plum);color:#fff;border-color:var(--plum)}
+.foot{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;margin-top:20px}
+/* ajustes */
+.box{background:var(--surface);border:1px solid var(--hairline);border-radius:20px;padding:22px;margin-bottom:18px;min-width:0}
+.box h2{font-size:26px;margin-bottom:4px}
+.box>p.sub{margin:0 0 14px;color:var(--stone);font-size:15px}
+.hrs{width:100%;border-collapse:collapse}
+.hrs td{padding:8px 6px;border-bottom:1px solid var(--hairline);vertical-align:middle}
+.hrs td:first-child{font-weight:600;width:110px}
+.hrs input[type=time]{min-height:40px;padding:6px 8px;border:1px solid var(--field);border-radius:10px;background:var(--canvas);width:100%;min-width:0}
+.hrs .lbl{font-size:12px;color:var(--ash);display:block;margin-bottom:2px}
+.ovx{overflow-x:auto}
+.svrow{display:grid;grid-template-columns:minmax(0,2.2fr) 90px 120px minmax(0,1fr) 44px;gap:8px;align-items:end;padding:12px 0;border-bottom:1px solid var(--hairline)}
+.svrow .full{grid-column:1/-1}
+.svrow label{display:block;font-size:12px;color:var(--ash);margin-bottom:3px}
+.svrow .x{width:44px;height:46px;border-radius:12px;border:1px solid #efc7c2;background:var(--surface);color:var(--error);font-size:20px;cursor:pointer}
+@media(max-width:760px){.svrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px}.svrow .nmf{grid-column:1/-1}.svrow .kf{grid-column:1/3}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:80;background:var(--ink);color:#fff;padding:12px 20px;border-radius:99px;font-weight:600;font-size:15px;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:calc(100% - 32px);text-align:center}
+:focus-visible{outline:2px solid var(--plum);outline-offset:2px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="/" target="_blank" rel="noopener"><img src="imagenes/logo.png" alt="" width="480" height="458"><span>Madelane Nails<small>Panel</small></span></a>
+  <button class="btn alt sm" id="out" type="button" hidden>Salir</button>
+</div><div class="wrap"><nav class="tabs" id="tabs" hidden><button type="button" data-t="citas" class="on">Citas</button><button type="button" data-t="ajustes">Horario y servicios</button><button type="button" data-t="respaldo">Respaldo</button></nav></div></header>
+
+<main class="wrap" id="app">
+  <form class="login" id="lf" novalidate>
+    <img src="imagenes/logo.png" alt="Madelane Nails" width="480" height="458">
+    <h1>Entrar al panel</h1>
+    <label class="f" for="lu">Usuario</label><input class="i" id="lu" autocomplete="username" autocapitalize="none" required>
+    <label class="f" for="lp">Contraseña</label><input class="i" id="lp" type="password" autocomplete="current-password" required>
+    <div class="hp" aria-hidden="true"><input id="lw" tabindex="-1" autocomplete="off"></div>
+    <button class="btn" type="submit" id="lb" style="width:100%;margin-top:20px">Entrar</button>
+    <div class="msg e" id="le" role="alert" hidden></div>
+  </form>
+</main>
+
+<script>
+const $=i=>document.getElementById(i);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const minOf=t=>{const[H,M]=t.split(':').map(Number);return H*60+M};
+const hmOf=m=>pad(Math.floor(m/60))+':'+pad(m%60);
+const f12=t=>{const[H,M]=t.split(':').map(Number);return(H%12||12)+':'+pad(M)+' '+(H<12?'a. m.':'p. m.')};
+const hNum=t=>{if(!t)return 0;const[H,M]=t.split(':').map(Number);return H+M/60};
+const numH=h=>pad(Math.floor(h))+':'+pad(Math.round((h%1)*60));
+const longDate=d=>{const s=new Date(d+'T12:00:00').toLocaleDateString('es-VE',{weekday:'long',day:'numeric',month:'long'});return s.charAt(0).toUpperCase()+s.slice(1)};
+const addDays=(d,n)=>{const x=new Date(d+'T12:00:00');x.setDate(x.getDate()+n);return x.getFullYear()+'-'+pad(x.getMonth()+1)+'-'+pad(x.getDate())};
+const code=id=>'MN-'+String(id).padStart(4,'0');
+const DAYS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const ST={pendiente:'Pendiente',confirmada:'Confirmada',cancelada:'Cancelada',completada:'Completada',no_asistio:'No asistió'};
+const WA_SVG='<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.3 2.5 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>';
+let TOK='',CFG=null,ITEMS=[],TODAY='',filt='proximas',notify=true,confirmDel=0,tab='citas';
+try{const t=localStorage.getItem('mn_tok');if(t&&+t.split('.')[0]>Date.now())TOK=t}catch(e){}
+try{notify=localStorage.getItem('mn_notify')!=='0'}catch(e){}
+
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),3200)}
+async function api(p,o={}){
+  o.headers={...(o.headers||{}),'Content-Type':'application/json',...(TOK?{Authorization:'Bearer '+TOK}:{})};
+  try{const r=await fetch(p,o);const d=await r.json().catch(()=>({}));d.status=r.status;if(r.status===401&&TOK){logout();toast(d.error||'Tu sesión expiró')}return d}
+  catch(e){return{ok:false,status:0,error:'Sin conexión. Revisa tu internet.'}}
+}
+const emailNote=e=>e==='sent'?' · correo enviado a la clienta':e==='failed'?' · el correo NO se pudo enviar':'';
+
+// ---------- login ----------
+$('lf').addEventListener('submit',async e=>{
+  e.preventDefault();const b=$('lb');b.disabled=true;$('le').hidden=true;
+  const r=await api('/api/login',{method:'POST',body:JSON.stringify({user:$('lu').value.trim(),pass:$('lp').value,website:$('lw').value})});
+  b.disabled=false;
+  if(!r.ok){$('le').textContent=r.error||'No se pudo entrar';$('le').hidden=false;return}
+  TOK=r.token;try{localStorage.setItem('mn_tok',TOK)}catch(e){}
+  start();
+});
+function logout(){TOK='';try{localStorage.removeItem('mn_tok')}catch(e){}location.reload()}
+$('out').addEventListener('click',logout);
+
+async function start(){
+  $('out').hidden=false;$('tabs').hidden=false;
+  $('app').innerHTML='<p style="color:var(--ash)">Cargando…</p>';
+  const [c,a]=await Promise.all([api('/api/admin/config'),api('/api/admin/appointments')]);
+  if(!c.ok||!a.ok){$('app').innerHTML='<div class="msg e">'+esc(c.error||a.error||'No se pudo cargar')+'</div>';return}
+  CFG=c.config;CFG.resend=c.resend;ITEMS=a.items;TODAY=a.today;
+  show(tab);
+}
+async function reload(){const a=await api('/api/admin/appointments');if(a.ok){ITEMS=a.items;TODAY=a.today}if(tab==='citas')renderCitas()}
+document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.t)));
+function show(t){tab=t;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));({citas:renderCitas,ajustes:renderAjustes,respaldo:renderRespaldo})[t]()}
+
+// ---------- citas ----------
+function renderCitas(){
+  const act=x=>x.status==='pendiente'||x.status==='confirmada';
+  const pend=ITEMS.filter(x=>x.status==='pendiente'&&x.date>=TODAY).length;
+  const hoy=ITEMS.filter(x=>x.date===TODAY&&act(x)).length,man=ITEMS.filter(x=>x.date===addDays(TODAY,1)&&act(x)).length;
+  let list=ITEMS;
+  if(filt==='proximas')list=ITEMS.filter(x=>x.date>=TODAY&&act(x));
+  else if(filt==='pendientes')list=ITEMS.filter(x=>x.status==='pendiente'&&x.date>=TODAY);
+  else if(filt==='hoy')list=ITEMS.filter(x=>x.date===TODAY);
+  else if(filt==='pasadas')list=ITEMS.filter(x=>x.date<TODAY).reverse();
+  else if(filt==='canceladas')list=ITEMS.filter(x=>x.status==='cancelada');
+  let h='<div class="stats"><button class="stat'+(pend?' warn':'')+'" data-f="pendientes"><b>'+pend+'</b><span>Por confirmar</span></button><button class="stat" data-f="hoy"><b>'+hoy+'</b><span>Citas hoy</span></button><button class="stat" data-f="proximas"><b>'+man+'</b><span>Citas mañana</span></button></div>';
+  h+='<div class="bar"><div class="chips">'+[['proximas','Próximas'],['pendientes','Por confirmar'],['hoy','Hoy'],['pasadas','Pasadas'],['canceladas','Canceladas']].map(([k,l])=>'<button type="button" data-f="'+k+'"'+(filt===k?' class="on"':'')+'>'+l+'</button>').join('')+'</div>';
+  h+='<label class="chk"><input type="checkbox" id="ntf"'+(notify?' checked':'')+'> Avisar por correo a la clienta</label><button class="btn" type="button" id="nw">+ Nueva cita</button></div>';
+  if(!CFG.resend)h+='<div class="msg e" style="margin:0 0 16px">Los correos todavía no están activos: falta la clave de Resend en Cloudflare. Las citas funcionan igual.</div>';
+  if(!list.length)h+='<div class="empty">'+({proximas:'No hay citas próximas. Cuando una clienta reserve, aparecerá aquí.',pendientes:'No tienes citas por confirmar.',hoy:'No hay citas hoy.',pasadas:'Todavía no hay citas pasadas.',canceladas:'No hay citas canceladas.'})[filt]+'</div>';
+  let last='';
+  for(const x of list){
+    if(x.date!==last){last=x.date;const n=list.filter(y=>y.date===x.date).length;h+='<h3 class="day">'+esc(longDate(x.date))+(x.date===TODAY?' <span class="tg">Hoy</span>':x.date===addDays(TODAY,1)?' <span class="tg">Mañana</span>':'')+' <small>'+n+(n===1?' cita':' citas')+'</small></h3>'}
+    h+=card(x);
+  }
+  $('app').innerHTML=h;
+  $('app').querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>{filt=b.dataset.f;confirmDel=0;renderCitas()}));
+  $('ntf').addEventListener('change',e=>{notify=e.target.checked;try{localStorage.setItem('mn_notify',notify?'1':'0')}catch(err){}});
+  $('nw').addEventListener('click',()=>editor(null));
+  $('app').querySelectorAll('[data-a]').forEach(b=>b.addEventListener('click',()=>act2(b.dataset.a,+b.dataset.id)));
+}
+function card(x){
+  const end=hmOf(minOf(x.time)+x.dur),ph=(x.phone||'').replace(/\D/g,''),waNum=ph.startsWith('0')?'58'+ph.slice(1):ph;
+  const msg='Hola '+x.name.split(' ')[0]+', te escribe Madelane de Madelane Nails sobre tu cita del '+longDate(x.date)+' a las '+f12(x.time)+' ('+x.service+').';
+  let a='';
+  if(x.status==='pendiente')a+='<button class="btn ok sm" data-a="confirmar" data-id="'+x.id+'">✓ Confirmar</button>';
+  if(x.status==='confirmada'&&x.date<=TODAY)a+='<button class="btn ok sm" data-a="completar" data-id="'+x.id+'">Completada</button><button class="btn alt sm" data-a="noasistio" data-id="'+x.id+'">No asistió</button>';
+  if(x.status==='cancelada'||x.status==='no_asistio')a+='<button class="btn alt sm" data-a="reactivar" data-id="'+x.id+'">Reactivar</button>';
+  a+='<button class="btn alt sm" data-a="editar" data-id="'+x.id+'">Editar / mover</button>';
+  if(waNum)a+='<a class="btn wa sm" target="_blank" rel="noopener" href="https://wa.me/'+waNum+'?text='+encodeURIComponent(msg)+'">'+WA_SVG+' WhatsApp</a>';
+  a+='<span class="sep"></span>';
+  if(x.status==='pendiente'||x.status==='confirmada')a+='<button class="btn dg sm" data-a="cancelar" data-id="'+x.id+'">Cancelar</button>';
+  a+='<button class="btn dg sm" data-a="borrar" data-id="'+x.id+'" aria-label="Eliminar">Eliminar</button>';
+  return '<div class="ap st-'+x.status+'"><div class="tm">'+esc(f12(x.time))+'<small>a '+esc(f12(end))+'</small></div>'+
+  '<div class="who"><div class="nm">'+esc(x.name)+'</div><div class="sv">'+esc(x.service)+'</div><div class="ct">'+(x.phone?'<a href="tel:'+esc(x.phone)+'">'+esc(x.phone)+'</a>':'')+(x.email?'<a href="mailto:'+esc(x.email)+'">'+esc(x.email)+'</a>':'')+'<span>'+code(x.id)+(x.source==='admin'?' · creada por ti':'')+'</span></div>'+(x.notes?'<div class="nt">'+esc(x.notes)+'</div>':'')+'</div>'+
+  '<div class="side"><span class="pill p-'+x.status+'">'+ST[x.status]+'</span></div>'+
+  (confirmDel===x.id?'<div class="cf">¿Eliminar esta cita para siempre? No se puede deshacer.<span style="flex:1"></span><button class="btn alt sm" data-a="nodel" data-id="'+x.id+'">No</button><button class="btn dg sm" data-a="sidel" data-id="'+x.id+'">Sí, eliminar</button></div>':'<div class="acts">'+a+'</div>')+'</div>';
+}
+async function setStatus(id,status,label){
+  const r=await api('/api/admin/appointments/'+id,{method:'PATCH',body:JSON.stringify({status,notify})});
+  if(!r.ok){toast(r.error||'No se pudo guardar');return}
+  toast(label+emailNote(r.email));reload();
+}
+function act2(a,id){
+  const x=ITEMS.find(y=>y.id===id);
+  if(a==='confirmar')setStatus(id,'confirmada','Cita confirmada');
+  else if(a==='cancelar')setStatus(id,'cancelada','Cita cancelada');
+  else if(a==='completar')setStatus(id,'completada','Marcada como completada');
+  else if(a==='noasistio')setStatus(id,'no_asistio','Marcada como no asistió');
+  else if(a==='reactivar')setStatus(id,'confirmada','Cita reactivada y confirmada');
+  else if(a==='editar')editor(x);
+  else if(a==='borrar'){confirmDel=id;renderCitas()}
+  else if(a==='nodel'){confirmDel=0;renderCitas()}
+  else if(a==='sidel'){confirmDel=0;api('/api/admin/appointments/'+id,{method:'DELETE'}).then(r=>{toast(r.ok?'Cita eliminada':(r.error||'No se pudo eliminar'));reload()})}
+}
+
+// ---------- editor ----------
+function editor(x){
+  const isNew=!x,svcs=CFG.services;
+  const s0=x?x.service:svcs[0].n,d0=x?x.date:TODAY,t0=x?x.time:'',dur0=x?x.dur:(svcs[0].dur||60);
+  const known=svcs.some(s=>s.n===s0);
+  const m=document.createElement('div');m.className='modal';m.setAttribute('role','dialog');m.setAttribute('aria-modal','true');
+  m.innerHTML='<div class="sheet"><h2>'+(isNew?'Nueva cita':'Editar cita '+code(x.id))+'</h2><p style="margin:0;color:var(--stone);font-size:15px">'+(isNew?'Queda confirmada al guardar.':'Si cambias el día o la hora, la clienta recibe un correo con el horario nuevo.')+'</p>'+
+  '<div class="g2"><div><label class="f" for="en">Nombre</label><input class="i" id="en" value="'+esc(x?x.name:'')+'"></div>'+
+  '<div><label class="f" for="ep">Teléfono</label><input class="i" id="ep" type="tel" value="'+esc(x?x.phone:'')+'"></div>'+
+  '<div class="full"><label class="f" for="ee">Correo <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ash)">(opcional)</span></label><input class="i" id="ee" type="email" value="'+esc(x?x.email:'')+'"></div>'+
+  '<div><label class="f" for="es">Servicio</label><select class="i" id="es">'+svcs.map(s=>'<option'+(s.n===s0?' selected':'')+'>'+esc(s.n)+'</option>').join('')+(known?'':'<option selected>'+esc(s0)+'</option>')+'</select></div>'+
+  '<div><label class="f" for="ed">Duración</label><select class="i" id="ed">'+[15,30,45,60,75,90,105,120,150,180,240].map(v=>'<option value="'+v+'"'+(v===dur0?' selected':'')+'>'+(v<60?v+' min':(v%60?Math.floor(v/60)+' h '+v%60+' min':v/60+' h'))+'</option>').join('')+'</select></div>'+
+  '<div><label class="f" for="edt">Día</label><input class="i" id="edt" type="date" value="'+esc(d0)+'"></div>'+
+  '<div><label class="f" for="etm">Hora</label><input class="i" id="etm" type="time" step="900" value="'+esc(t0)+'"></div>'+
+  '<div class="full"><span style="font-size:13px;color:var(--ash)">Horas libres ese día:</span><div class="tms" id="etms"></div></div>'+
+  '<div class="full"><label class="f" for="ex">Notas</label><textarea class="i" id="ex">'+esc(x?x.notes:'')+'</textarea></div></div>'+
+  '<div class="msg e" id="eerr" hidden></div>'+
+  '<div class="foot"><button class="btn alt" type="button" id="ecl">Cerrar</button><button class="btn" type="button" id="esv">'+(isNew?'Guardar cita':'Guardar cambios')+'</button></div></div>';
+  document.body.appendChild(m);
+  const close=()=>{m.remove();document.removeEventListener('keydown',esc2)},esc2=e=>{if(e.key==='Escape')close()};
+  document.addEventListener('keydown',esc2);
+  m.addEventListener('click',e=>{if(e.target===m)close()});
+  $('ecl').addEventListener('click',close);
+  $('es').addEventListener('change',()=>{const s=svcs.find(v=>v.n===$('es').value);if(s){$('ed').value=String(s.dur)}loadT()});
+  ['ed','edt'].forEach(i=>$(i).addEventListener('change',loadT));
+  let force=false;
+  async function loadT(){
+    const d=$('edt').value;if(!d){$('etms').innerHTML='';return}
+    const r=await api('/api/admin/slots?date='+d+'&dur='+$('ed').value+(x?'&except='+x.id:''));
+    const ts=r.times||[];
+    $('etms').innerHTML=ts.length?ts.map(t=>'<button type="button" data-t="'+t+'"'+(t===$('etm').value?' class="on"':'')+'>'+f12(t)+'</button>').join(''):'<span style="font-size:14px;color:var(--ash)">Ninguna (día cerrado o lleno). Puedes escribir la hora a mano.</span>';
+    $('etms').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{$('etm').value=b.dataset.t;$('etms').querySelectorAll('button').forEach(y=>y.classList.toggle('on',y===b))}));
+  }
+  loadT();
+  $('esv').addEventListener('click',async()=>{
+    const body={name:$('en').value.trim(),phone:$('ep').value.trim(),email:$('ee').value.trim(),service:$('es').value,dur:+$('ed').value,date:$('edt').value,time:$('etm').value,notes:$('ex').value.trim(),notify,force};
+    const b=$('esv');b.disabled=true;$('eerr').hidden=true;
+    const r=await api(isNew?'/api/admin/appointments':'/api/admin/appointments/'+x.id,{method:isNew?'POST':'PATCH',body:JSON.stringify(body)});
+    b.disabled=false;
+    if(!r.ok){
+      $('eerr').textContent=r.error||'No se pudo guardar';$('eerr').hidden=false;
+      if(r.busy){force=true;b.textContent='Guardar igual';$('eerr').textContent+=' Si aun así quieres guardarla, pulsa «Guardar igual».'}
+      return;
+    }
+    close();toast((isNew?'Cita creada':'Cambios guardados')+emailNote(r.email));reload();
+  });
+  $('en').focus();
+}
+
+// ---------- ajustes ----------
+function renderAjustes(){
+  const c=CFG;
+  let h='<div class="box"><h2>Horario de atención</h2><p class="sub">Las clientas solo ven horas dentro de este horario. Deja el almuerzo vacío si no lo usas.</p><div class="ovx"><table class="hrs"><tbody>';
+  for(const d of [1,2,3,4,5,6,0]){const x=c.hours[d];
+    h+='<tr><td><label class="chk"><input type="checkbox" data-o="'+d+'"'+(x[0]?' checked':'')+'> '+DAYS[d]+'</label></td><td><span class="lbl">Abre</span><input type="time" step="900" data-h="'+d+'-1" value="'+numH(x[1])+'"></td><td><span class="lbl">Cierra</span><input type="time" step="900" data-h="'+d+'-2" value="'+numH(x[2])+'"></td><td><span class="lbl">Almuerzo desde</span><input type="time" step="900" data-h="'+d+'-3" value="'+(x[4]>x[3]?numH(x[3]):'')+'"></td><td><span class="lbl">hasta</span><input type="time" step="900" data-h="'+d+'-4" value="'+(x[4]>x[3]?numH(x[4]):'')+'"></td></tr>'}
+  h+='</tbody></table></div><label class="f" for="sl">Mostrar horas cada</label><select class="i" id="sl" style="max-width:220px">'+[15,30,45,60].map(v=>'<option value="'+v+'"'+(v===c.slot?' selected':'')+'>'+v+' minutos</option>').join('')+'</select></div>';
+  h+='<div class="box"><h2>Servicios y precios</h2><p class="sub">Los cambios se ven al instante en la web y en la agenda. La duración decide cuánto tiempo se bloquea en tu agenda.</p><div id="svl"></div><button class="btn alt sm" type="button" id="adds" style="margin-top:12px">+ Agregar servicio</button></div>';
+  h+='<div class="box"><h2>Contacto y avisos</h2><div class="g2"><div class="full"><label class="f" for="cem">Correo donde te llegan las reservas</label><input class="i" id="cem" type="email" value="'+esc(c.email)+'"></div><div><label class="f" for="cwa">WhatsApp (con código de país)</label><input class="i" id="cwa" value="'+esc(c.wa)+'"></div><div><label class="f" for="cws">WhatsApp como se muestra</label><input class="i" id="cws" value="'+esc(c.waShow)+'"></div></div><div class="foot" style="justify-content:flex-start"><button class="btn alt sm" type="button" id="tst">Enviarme un correo de prueba</button></div></div>';
+  h+='<div class="foot" style="position:sticky;bottom:calc(12px + env(safe-area-inset-bottom,0px))"><button class="btn" type="button" id="svA" style="box-shadow:0 10px 30px rgba(75,58,80,.3)">Guardar cambios</button></div><div class="msg e" id="aer" hidden></div>';
+  $('app').innerHTML=h;
+  let S=c.services.map(s=>({...s}));
+  function svl(){
+    $('svl').innerHTML=S.map((s,i)=>'<div class="svrow"><div class="nmf"><label>Nombre</label><input class="i" data-s="'+i+'-n" value="'+esc(s.n)+'"></div><div><label>Precio $</label><input class="i" type="number" min="0" step="0.5" inputmode="decimal" data-s="'+i+'-p" value="'+esc(s.p)+'"></div><div><label>Duración</label><select class="i" data-s="'+i+'-dur">'+[15,30,45,60,75,90,105,120,150,180,240].map(v=>'<option value="'+v+'"'+(v===s.dur?' selected':'')+'>'+(v<60?v+' min':(v%60?Math.floor(v/60)+' h '+v%60:v/60+' h'))+'</option>').join('')+'</select></div><div class="kf"><label>Etiqueta</label><input class="i" data-s="'+i+'-k" value="'+esc(s.k||'')+'" placeholder="Ej.: Vegano"></div><button class="x" type="button" data-del="'+i+'" aria-label="Quitar servicio">×</button><div class="full"><label>Descripción</label><input class="i" data-s="'+i+'-d" value="'+esc(s.d||'')+'"></div></div>').join('');
+    $('svl').querySelectorAll('[data-s]').forEach(el=>el.addEventListener('input',()=>{const[i,k]=el.dataset.s.split('-');S[+i][k]=k==='p'||k==='dur'?+el.value:el.value}));
+    $('svl').querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',()=>{S.splice(+b.dataset.del,1);svl()}));
+  }
+  svl();
+  $('adds').addEventListener('click',()=>{S.push({n:'',p:0,dur:60,d:'',k:''});svl();$('svl').querySelector('[data-s="'+(S.length-1)+'-n"]').focus()});
+  $('tst').addEventListener('click',async()=>{const r=await api('/api/admin/test-email',{method:'POST',body:'{}'});toast(r.ok?'Correo de prueba enviado a '+CFG.email:(r.error||'No se pudo enviar'))});
+  $('svA').addEventListener('click',async()=>{
+    const hours=[0,1,2,3,4,5,6].map(d=>{const g=k=>document.querySelector('[data-h="'+d+'-'+k+'"]').value;const ls=hNum(g(3)),le=hNum(g(4));return[document.querySelector('[data-o="'+d+'"]').checked?1:0,hNum(g(1)),hNum(g(2)),le>ls?ls:0,le>ls?le:0]});
+    const body={hours,slot:+$('sl').value,services:S.filter(s=>s.n.trim()),email:$('cem').value.trim(),wa:$('cwa').value.trim(),waShow:$('cws').value.trim()};
+    const b=$('svA');b.disabled=true;$('aer').hidden=true;
+    const r=await api('/api/admin/config',{method:'PUT',body:JSON.stringify(body)});b.disabled=false;
+    if(!r.ok){$('aer').textContent=r.error||'No se pudo guardar';$('aer').hidden=false;return}
+    const c2=await api('/api/admin/config');if(c2.ok){CFG=c2.config;CFG.resend=c2.resend}
+    toast('Cambios guardados');renderAjustes();
+  });
+}
+
+// ---------- respaldo ----------
+function renderRespaldo(){
+  $('app').innerHTML='<div class="box"><h2>Respaldo de tus citas</h2><p class="sub">Descarga una copia de todas tus citas, servicios y horario. Guárdala en tu teléfono o en tu correo de vez en cuando.</p><button class="btn" type="button" id="bk">Descargar respaldo</button></div>';
+  $('bk').addEventListener('click',async()=>{
+    try{const r=await fetch('/api/admin/backup',{headers:{Authorization:'Bearer '+TOK}});if(!r.ok)throw 0;
+      const bl=await r.blob(),u=URL.createObjectURL(bl),a=document.createElement('a');a.href=u;a.download='madelane-respaldo-'+TODAY+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast('Respaldo descargado')}
+    catch(e){toast('No se pudo descargar el respaldo')}
+  });
+}
+
+if(TOK)start();else $('lu').focus();
+</script>
+</body>
+</html>

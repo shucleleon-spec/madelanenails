@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reserva tu cita · Madelane Nails</title>
+<meta name="theme-color" content="#faf6f9">
+<meta name="description" content="Agenda tu cita de manicura en Pampatar con Madelane Nails: elige el servicio, el día y la hora.">
+<link rel="icon" type="image/png" href="imagenes/favicon.png">
+<link rel="apple-touch-icon" href="imagenes/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..500;1,6..72,200..500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;
+--canvas:#faf6f9;--surface:#fff;--soft:#f2eaf2;--hairline:#e7dde6;--field:#d9ccd8;
+--ink:#271f2b;--stone:#5a4c5f;--ash:#8b8090;--mute:#b3a8b6;
+--plum:#76607b;--plum-deep:#4b3a50;--lav:#c09dcb;--lav-soft:#dcc6e3;--lav-pale:#efe3f2;
+--band:#2b2130;--wa:#25a244;--error:#c2362b;--ok:#2f7a47;
+--serif:'Newsreader','Iowan Old Style',Georgia,serif;--sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;--wide:1240px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);color:var(--ink);font:400 18px/1.55 var(--sans);overflow-x:clip}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--canvas);z-index:41}
+h1,h2,h3{font-family:var(--serif);font-weight:300;margin:0;line-height:1.1;text-wrap:balance}
+em{font-style:italic;color:var(--plum);font-weight:300}
+a{color:var(--plum)}
+.in{max-width:var(--wide);margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.eye{margin:0 0 18px;font:700 12px/1.2 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--plum)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border:1.5px solid transparent;border-radius:9999px;background:var(--plum);color:#fff;font:600 16px/1 var(--sans);text-decoration:none;cursor:pointer;transition:transform .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px);background:var(--plum-deep)}
+.btn:disabled{opacity:.55;cursor:wait;transform:none}
+.btn.alt{background:transparent;color:var(--plum);border-color:var(--plum)}.btn.alt:hover{background:var(--plum);color:#fff}
+.btn.wa{background:var(--wa)}.btn.wa:hover{background:#1d8638}
+.btn svg{width:20px;height:20px;fill:currentColor}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--canvas);border-bottom:1px solid var(--hairline);padding:10px max(24px,env(safe-area-inset-right,0px)) 10px max(24px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:14px}
+.logo{margin-right:auto;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--plum-deep)}
+.logo img{display:block;height:52px;width:auto}
+.logo span{font:400 22px/1 var(--serif)}
+header nav a{padding:10px 14px;font:400 15px/1.4 var(--sans);color:var(--stone);text-decoration:none;border-radius:9999px}
+header nav a:hover{background:var(--soft)}
+@media(max-width:600px){.logo span{font-size:19px}header nav a.hd{display:none}}
+/* reservar */
+.bk{padding-block:clamp(36px,6vw,88px) clamp(64px,9vw,120px)}
+.bk-g{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,88px);align-items:start}
+.bk-l{position:sticky;top:110px;min-width:0}
+.bk-l h1{font-size:clamp(2.8rem,6vw,80px);line-height:1.04;margin:0 0 clamp(22px,3vw,36px)}
+.note-m{display:none}
+@media(max-width:1000px){.bk-g{grid-template-columns:1fr}.bk-l{position:static}.bk-l .note,.bk-l .sel{display:none}.bk-l h1{margin-bottom:0}.note-m{display:block}}
+.sel{margin:0 0 18px;padding:24px;background:var(--surface);border:1px solid var(--hairline);border-radius:24px}
+.sel .top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.sel .nm{font:400 clamp(26px,2.6vw,32px)/1.15 var(--serif);min-width:0}
+.sel .pr{font:300 42px/1 var(--serif);color:var(--plum);white-space:nowrap;font-variant-numeric:tabular-nums}
+.sel .pr small{font-size:.5em;vertical-align:.7em;margin-right:2px}
+.sel .mt{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.sel .mt span{padding:5px 12px;border:1px solid var(--lav);border-radius:9999px;font:700 11px/1.2 var(--sans);letter-spacing:1px;text-transform:uppercase;color:var(--plum)}
+.sel .ds{margin:14px 0 0;font-size:16px;color:var(--stone)}
+.note{padding:18px 20px;border-radius:18px;background:var(--surface);border:1px solid var(--hairline);border-left:3px solid var(--lav);color:var(--stone);font-size:15px;line-height:1.6}
+.note b{color:var(--ink)}
+.note ul{margin:8px 0 0;padding-left:18px}
+.card{background:var(--surface);border:1px solid var(--hairline);border-radius:24px;padding:clamp(22px,3vw,36px);box-shadow:0 20px 50px rgba(75,58,80,.08);min-width:0}
+.step{padding-block:22px;border-top:1px solid var(--hairline)}
+.step:first-child{padding-top:0;border-top:0}
+.step h2{display:flex;align-items:baseline;gap:12px;font:400 26px/1.2 var(--serif);margin:0 0 16px}
+.step h2 i{font:700 12px/1 var(--sans);font-style:normal;letter-spacing:2px;text-transform:uppercase;color:var(--plum)}
+.svs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.svs label{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--field);border-radius:16px;cursor:pointer;background:var(--canvas);transition:border-color .15s,background .15s;min-width:0}
+.svs label:hover{border-color:var(--plum)}
+.svs input{position:absolute;opacity:0;pointer-events:none}
+.svs .t{display:flex;flex-direction:column;min-width:0;font:500 15px/1.3 var(--sans)}
+.svs .t small{font-size:13px;color:var(--ash);margin-top:3px}
+.svs b{font:300 26px/1 var(--serif);color:var(--plum);white-space:nowrap}
+.svs input:checked+.t{color:var(--plum-deep)}
+.svs label:has(input:checked){border-color:var(--plum);background:var(--lav-pale);box-shadow:inset 0 0 0 1px var(--plum)}
+.svs label:has(input:focus-visible){outline:2px solid var(--plum);outline-offset:2px}
+@media(max-width:640px){.svs{grid-template-columns:1fr}}
+.cal-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 12px;max-width:440px}
+.cal-h b{font:400 22px/1 var(--serif)}
+.cal-h button{width:44px;height:44px;border-radius:50%;border:1px solid var(--field);background:var(--surface);color:var(--stone);font-size:18px;cursor:pointer}
+.cal-h button:disabled{opacity:.3;cursor:default}
+.cal{max-width:440px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;text-align:center}
+.cal span{font:700 11px/1.2 var(--sans);letter-spacing:.5px;text-transform:uppercase;color:var(--ash);padding:4px 0}
+.cal button{aspect-ratio:1;min-width:0;border:1px solid var(--hairline);background:var(--surface);color:var(--ink);border-radius:50%;cursor:pointer;font:500 15px var(--sans);font-variant-numeric:tabular-nums;touch-action:manipulation}
+.cal button:hover:not(:disabled){background:var(--soft)}
+.cal button:disabled{opacity:.28;cursor:not-allowed}
+.cal button.on,.slots button.on{background:var(--plum);color:#fff;border-color:var(--plum)}
+.slots{display:flex;flex-wrap:wrap;gap:8px}
+.slots button{min-height:46px;padding:0 18px;border:1px solid var(--field);background:var(--surface);color:var(--stone);border-radius:9999px;cursor:pointer;font:500 15px var(--sans);font-variant-numeric:tabular-nums;touch-action:manipulation}
+.slots button:hover{background:var(--soft)}
+.hint{margin:0;font-size:15px;color:var(--ash)}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+.fields .full{grid-column:1/-1}
+@media(max-width:640px){.fields{grid-template-columns:1fr}}
+label.f{display:block;font:700 12px/1.3 var(--sans);letter-spacing:1px;text-transform:uppercase;color:var(--ink);margin:14px 0 8px}
+.rq{color:var(--error)}
+input.i,textarea{width:100%;padding:13px 16px;min-height:50px;border:1px solid var(--field);border-radius:12px;background:var(--canvas);color:var(--ink);font:400 16px/1.4 var(--sans)}
+textarea{min-height:90px;resize:vertical}
+input.i:focus,textarea:focus{outline:none;background:var(--surface);border-color:var(--plum);box-shadow:0 0 0 3px var(--lav-pale)}
+.bad{border-color:var(--error)!important;box-shadow:0 0 0 2px rgba(194,54,43,.15)!important}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.sum{margin:0 0 16px;padding:16px 18px;border-radius:16px;background:var(--lav-pale);color:var(--plum-deep);font-size:15px}
+.sum:empty{display:none}
+#ts{margin:0 0 16px;min-height:0}
+.err{margin:14px 0 0;padding:14px 16px;border-radius:14px;background:#fbecea;color:var(--error);font-size:15px}
+.done{text-align:left}
+.done .ok{display:inline-grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--lav-pale);color:var(--plum);font-size:26px;margin-bottom:16px}
+.done h2{font:300 clamp(2rem,4vw,44px)/1.1 var(--serif);margin:0 0 12px}
+.done p{color:var(--stone);margin:0 0 16px}
+.done table{width:100%;border-collapse:collapse;margin:0 0 22px;font-size:16px}
+.done td{padding:11px 0;border-bottom:1px solid var(--hairline)}
+.done td:first-child{color:var(--ash);width:38%}
+.done td:last-child{font-weight:600}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:600px){body{font-size:17px}.row .btn{flex:1 1 100%}.cal{gap:4px}}
+footer{background:var(--band);color:var(--mute);font-size:14px;padding-block:40px calc(40px + env(safe-area-inset-bottom,0px))}
+footer p{margin:0}footer a{color:#fff}
+:focus-visible{outline:2px solid var(--plum);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/" aria-label="Madelane Nails, inicio"><img src="imagenes/logo.png" alt="" width="480" height="458"><span>Madelane Nails</span></a>
+  <nav><a class="hd" href="/#servicios">Servicios</a><a href="/">‹ Inicio</a></nav>
+</header>
+
+<main class="bk"><div class="in bk-g">
+  <div class="bk-l">
+    <p class="eye">Agenda en línea</p>
+    <h1>Reserva tu <em>cita</em></h1>
+    <div class="sel" id="sel" hidden></div>
+    <div class="note"><b>Cómo funciona</b>
+      <ul><li>Tu cita queda <b>pendiente</b> hasta que te confirme por WhatsApp.</li>
+      <li>Te envío la <b>ubicación exacta</b> en Pampatar al confirmar.</li>
+      <li>Precios en dólares, a <b>tasa BCV</b>.</li>
+      <li>Si traes esmalte puesto, el retiro cuesta $1 adicional.</li></ul>
+    </div>
+  </div>
+
+  <div class="card" id="formCard">
+    <form id="f" novalidate>
+      <div class="step"><h2><i>Paso 1</i>Elige tu servicio</h2><div class="svs" id="svs" role="radiogroup" aria-label="Servicio"><p class="hint">Cargando servicios…</p></div></div>
+      <div class="step"><h2><i>Paso 2</i>Elige el día</h2>
+        <div class="cal-h"><button type="button" id="pm" aria-label="Mes anterior">‹</button><b id="mn"></b><button type="button" id="nm" aria-label="Mes siguiente">›</button></div>
+        <div class="cal" id="cal"></div>
+      </div>
+      <div class="step"><h2><i>Paso 3</i>Elige la hora</h2><div id="slots" class="slots"><p class="hint">Primero elige el servicio y el día.</p></div></div>
+      <div class="step"><h2><i>Paso 4</i>Tus datos</h2>
+        <div class="fields">
+          <div><label class="f" for="fn">Nombre y apellido<span class="rq"> *</span></label><input class="i" id="fn" autocomplete="name" required maxlength="80"></div>
+          <div><label class="f" for="fp">Teléfono / WhatsApp<span class="rq"> *</span></label><input class="i" id="fp" type="tel" inputmode="tel" autocomplete="tel" placeholder="0414-1234567" required maxlength="30"></div>
+          <div class="full"><label class="f" for="fe">Correo electrónico<span class="rq"> *</span></label><input class="i" id="fe" type="email" inputmode="email" autocomplete="email" placeholder="Te llega la confirmación aquí" required maxlength="120"></div>
+          <div class="full"><label class="f" for="fx">Notas <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--ash)">(opcional)</span></label><textarea id="fx" maxlength="300" placeholder="Ej.: traigo esmalte puesto, quiero un diseño con flores…"></textarea></div>
+        </div>
+        <div class="hp" aria-hidden="true"><label for="website">No llenar</label><input id="website" tabindex="-1" autocomplete="off"></div>
+      </div>
+      <div class="step">
+        <div class="sum" id="sum"></div>
+        <div id="ts"></div>
+        <button class="btn" id="go" type="submit" style="width:100%">Solicitar mi cita</button>
+        <div class="err" id="err" role="alert" hidden></div>
+      </div>
+    </form>
+  </div>
+  <div class="note note-m"><b>Cómo funciona</b>
+      <ul><li>Tu cita queda <b>pendiente</b> hasta que te confirme por WhatsApp.</li>
+      <li>Te envío la <b>ubicación exacta</b> en Pampatar al confirmar.</li>
+      <li>Precios en dólares, a <b>tasa BCV</b>.</li>
+      <li>Si traes esmalte puesto, el retiro cuesta $1 adicional.</li></ul>
+    </div>
+</div></main>
+
+<footer><div class="in"><p>© <span id="yr">2026</span> Madelane Nails · Manicurista · Pampatar · <a href="/">Volver al inicio</a></p></div></footer>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<script>
+const $=i=>document.getElementById(i);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const MONTHS=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const f12=t=>{const[H,M]=t.split(':').map(Number);return(H%12||12)+':'+pad(M)+' '+(H<12?'a. m.':'p. m.')};
+const durTxt=m=>m<60?m+' min':(m%60?Math.floor(m/60)+' h '+m%60+' min':m/60+(m===60?' hora':' horas'));
+const longDate=d=>{const s=new Date(d+'T12:00:00').toLocaleDateString('es-VE',{weekday:'long',day:'numeric',month:'long'});return s.charAt(0).toUpperCase()+s.slice(1)};
+const T0=Date.now();
+let C=null,svc='',day='',time='',view=null,tsId=null,today='';
+$('yr').textContent=new Date().getFullYear();
+
+async function api(p,o){try{const r=await fetch(p,o);const d=await r.json().catch(()=>({}));d.status=r.status;return d}catch(e){return{ok:false,status:0,error:'No hay conexión. Revisa tu internet e intenta de nuevo.'}}}
+
+function paintSel(){
+  const s=C&&C.services.find(x=>x.n===svc),el=$('sel');
+  if(!s){el.hidden=true;return}
+  el.hidden=false;
+  el.innerHTML='<div class="top"><span class="nm">'+esc(s.n)+'</span><span class="pr"><small>$</small>'+esc(s.p)+'</span></div><div class="mt"><span>'+esc(durTxt(s.dur))+'</span>'+(s.k?'<span>'+esc(s.k)+'</span>':'')+'</div>'+(s.d?'<p class="ds">'+esc(s.d)+'</p>':'');
+}
+function paintSvcs(){
+  $('svs').innerHTML=C.services.map((s,i)=>'<label><input type="radio" name="sv" value="'+esc(s.n)+'"'+(s.n===svc?' checked':'')+'><span class="t">'+esc(s.n)+'<small>'+esc(durTxt(s.dur))+'</small></span><b>$'+esc(s.p)+'</b></label>').join('');
+  $('svs').querySelectorAll('input').forEach(x=>x.addEventListener('change',()=>{svc=x.value;time='';paintSel();loadSlots();summary()}));
+}
+function dayOpen(d){const h=C.hours[new Date(d+'T12:00:00').getDay()];return h&&h[0]}
+function maxDay(){const d=new Date(today+'T12:00:00');d.setDate(d.getDate()+90);return iso(d)}
+function paintCal(){
+  const y=view.getFullYear(),mo=view.getMonth(),first=new Date(y,mo,1),n=new Date(y,mo+1,0).getDate(),mx=maxDay();
+  $('mn').textContent=MONTHS[mo]+' '+y;
+  const t0=new Date(today+'T12:00:00');
+  $('pm').disabled=y===t0.getFullYear()&&mo===t0.getMonth();
+  const mxd=new Date(mx+'T12:00:00');$('nm').disabled=y>mxd.getFullYear()||(y===mxd.getFullYear()&&mo>=mxd.getMonth());
+  let h=['D','L','M','M','J','V','S'].map(x=>'<span aria-hidden="true">'+x+'</span>').join('');
+  for(let i=0;i<first.getDay();i++)h+='<span></span>';
+  for(let d=1;d<=n;d++){const ds=y+'-'+pad(mo+1)+'-'+pad(d),off=ds<today||ds>mx||!dayOpen(ds);
+    h+='<button type="button" data-d="'+ds+'"'+(off?' disabled':'')+(ds===day?' class="on"':'')+' aria-label="'+esc(longDate(ds))+(off?', no disponible':'')+'">'+d+'</button>'}
+  $('cal').innerHTML=h;
+  $('cal').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{day=b.dataset.d;time='';paintCal();loadSlots();summary()}));
+}
+let slotReq=0;
+async function loadSlots(){
+  const el=$('slots');
+  if(!svc||!day){el.innerHTML='<p class="hint">'+(!svc?'Primero elige el servicio.':'Ahora elige el día.')+'</p>';return}
+  el.innerHTML='<p class="hint">Buscando horas libres…</p>';
+  const my=++slotReq,r=await api('/api/slots?date='+day+'&service='+encodeURIComponent(svc));
+  if(my!==slotReq)return;
+  const ts=r.times||[];
+  if(!ts.length){el.innerHTML='<p class="hint">Ese día ya no quedan horas para este servicio. Prueba con otro día.</p>';return}
+  el.innerHTML=ts.map(t=>'<button type="button" data-t="'+t+'"'+(t===time?' class="on"':'')+'>'+f12(t)+'</button>').join('');
+  el.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{time=b.dataset.t;el.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));summary()}));
+}
+function summary(){
+  const s=C&&C.services.find(x=>x.n===svc);
+  $('sum').innerHTML=s&&day&&time?'<b>'+esc(s.n)+'</b> · '+esc(longDate(day))+' a las '+esc(f12(time))+' · $'+esc(s.p):'';
+}
+function renderTs(){
+  if(!C||!C.sitekey||tsId!==null)return;
+  if(!window.turnstile){setTimeout(renderTs,300);return}
+  tsId=turnstile.render('#ts',{sitekey:C.sitekey,language:'es',theme:'light',size:'flexible'});
+}
+function fail(msg,el){const e=$('err');e.textContent=msg;e.hidden=false;if(el){el.classList.add('bad');el.focus()}else e.scrollIntoView({block:'center',behavior:'smooth'})}
+['fn','fp','fe'].forEach(id=>$(id).addEventListener('input',()=>$(id).classList.remove('bad')));
+
+$('f').addEventListener('submit',async e=>{
+  e.preventDefault();$('err').hidden=true;
+  const name=$('fn').value.trim(),phone=$('fp').value.trim(),email=$('fe').value.trim();
+  if(!svc)return fail('Elige un servicio (paso 1).');
+  if(!day)return fail('Elige el día de tu cita (paso 2).');
+  if(!time)return fail('Elige la hora de tu cita (paso 3).');
+  if(name.length<2)return fail('Escribe tu nombre y apellido.',$('fn'));
+  if(phone.replace(/\D/g,'').length<10)return fail('Escribe tu teléfono completo, por ejemplo 0414-1234567.',$('fp'));
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))return fail('Escribe un correo válido para enviarte la confirmación.',$('fe'));
+  let tok='';
+  if(C.sitekey&&window.turnstile&&tsId!==null){tok=turnstile.getResponse(tsId)||'';if(!tok)return fail('Espera un momento a que termine la verificación anti-bots y vuelve a intentar.')}
+  const b=$('go');b.disabled=true;b.textContent='Enviando…';
+  const r=await api('/api/appointments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,phone,email,service:svc,date:day,time,notes:$('fx').value.trim(),website:$('website').value,ft:Date.now()-T0,turnstile:tok})});
+  b.disabled=false;b.textContent='Solicitar mi cita';
+  if(!r.ok){
+    if(window.turnstile&&tsId!==null)turnstile.reset(tsId);
+    if(r.status===409){time='';loadSlots();summary()}
+    return fail(r.error||'No se pudo enviar. Intenta de nuevo o escríbeme por WhatsApp.');
+  }
+  done(r,{name,email});
+});
+function done(r,p){
+  const s=C.services.find(x=>x.n===svc);
+  const wa='https://wa.me/'+C.wa+'?text='+encodeURIComponent('Hola Madelane, agendé una cita'+(r.code?' ('+r.code+')':'')+': '+svc+', '+longDate(day)+' a las '+f12(time)+'. Mi nombre es '+p.name+'.');
+  $('formCard').innerHTML='<div class="done"><span class="ok" aria-hidden="true">✓</span><h2>¡Solicitud <em>recibida</em>!</h2>'+
+  '<p>Tu cita queda <b>pendiente</b> hasta que te confirme por WhatsApp. '+(r.email==='sent'?'Te envié los detalles a <b>'+esc(p.email)+'</b>.':'')+'</p>'+
+  '<table>'+(r.code?'<tr><td>Número de cita</td><td>'+esc(r.code)+'</td></tr>':'')+'<tr><td>Servicio</td><td>'+esc(svc)+'</td></tr><tr><td>Fecha</td><td>'+esc(longDate(day))+'</td></tr><tr><td>Hora</td><td>'+esc(f12(time))+'</td></tr><tr><td>Precio</td><td>$'+esc(s?s.p:'')+' (tasa BCV)</td></tr></table>'+
+  '<p>Si quieres, escríbeme ya para agilizar la confirmación:</p>'+
+  '<div class="row"><a class="btn wa" target="_blank" rel="noopener" href="'+esc(wa)+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.3 2.5 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>Escribir por WhatsApp</a><a class="btn alt" href="/">Volver al inicio</a></div></div>';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+(async()=>{
+  const r=await api('/api/config');
+  if(!r.ok){$('svs').innerHTML='<p class="hint">No pude cargar los servicios. Recarga la página o escríbeme por WhatsApp al 0414-1887538.</p>';return}
+  C=r;today=r.today;
+  const q=new URLSearchParams(location.search).get('s');
+  if(q&&C.services.some(x=>x.n===q))svc=q;
+  const t=new Date(today+'T12:00:00');view=new Date(t.getFullYear(),t.getMonth(),1);
+  paintSvcs();paintSel();paintCal();loadSlots();renderTs();
+  $('pm').addEventListener('click',()=>{view=new Date(view.getFullYear(),view.getMonth()-1,1);paintCal()});
+  $('nm').addEventListener('click',()=>{view=new Date(view.getFullYear(),view.getMonth()+1,1);paintCal()});
+})();
+</script>
+</body>
+</html>
