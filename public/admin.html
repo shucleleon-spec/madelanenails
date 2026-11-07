@@ -169,6 +169,11 @@ button.b.fr:hover{border-style:solid;border-color:var(--plum);background:var(--l
 .ea{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .ea .btn{min-height:36px;padding:0 12px;font-size:13px}
 @media(max-width:520px){.sl{grid-template-columns:70px minmax(0,1fr);gap:8px}.sl .t{font-size:12.5px}.ea .btn{flex:1 1 auto}}
+.srch{position:relative;flex:1 1 320px;min-width:0;margin-right:auto}
+.srch svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--ash);pointer-events:none}
+.srch .i{padding-left:44px;border-radius:9999px;background:var(--surface)}
+.cnt{margin:0 0 4px;font-size:14px;color:var(--ash)}
+.sec{margin:40px 0 0;padding-top:20px;border-top:1px solid var(--hairline);font:700 12px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--ash)}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:80;background:var(--ink);color:#fff;padding:12px 20px;border-radius:99px;font-weight:600;font-size:15px;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:calc(100% - 32px);text-align:center}
 :focus-visible{outline:2px solid var(--plum);outline-offset:2px}
 </style>
@@ -234,9 +239,9 @@ $('out').addEventListener('click',logout);
 async function start(){
   $('out').hidden=false;$('tabs').hidden=false;
   $('app').innerHTML='<p style="color:var(--ash)">Cargando…</p>';
-  const [c,a]=await Promise.all([api('/api/admin/config'),api('/api/admin/appointments')]);
+  const [c,a]=await Promise.all([api('/api/admin/config'),api('/api/admin/appointments?from=2000-01-01')]);
   if(!c.ok||!a.ok){$('app').innerHTML='<div class="msg e">'+esc(c.error||a.error||'No se pudo cargar')+'</div>';return}
-  CFG=c.config;CFG.resend=c.resend;ITEMS=a.items;TODAY=a.today;LOADED_FROM=addDays(TODAY,-60);
+  CFG=c.config;CFG.resend=c.resend;ITEMS=a.items;TODAY=a.today;LOADED_FROM='2000-01-01';
   show(tab);
 }
 async function reload(){const a=await api('/api/admin/appointments'+(LOADED_FROM?'?from='+LOADED_FROM:''));if(a.ok){ITEMS=a.items;TODAY=a.today}if(tab==='citas')renderCitas();else if(tab==='agenda')renderAgenda()}
@@ -244,40 +249,62 @@ document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',
 function show(t){tab=t;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));({citas:renderCitas,agenda:renderAgenda,ajustes:renderAjustes,respaldo:renderRespaldo})[t]()}
 
 // ---------- citas ----------
+const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+let Q='';
 function renderCitas(){
-  const act=x=>x.status==='pendiente'||x.status==='confirmada';
-  let list=ITEMS;
-  if(filt==='proximas')list=ITEMS.filter(x=>x.date>=TODAY&&act(x));
-  else if(filt==='pendientes')list=ITEMS.filter(x=>x.status==='pendiente'&&x.date>=TODAY);
-  else if(filt==='hoy')list=ITEMS.filter(x=>x.date===TODAY);
-  else if(filt==='pasadas')list=ITEMS.filter(x=>x.date<TODAY).reverse();
-  else if(filt==='canceladas')list=ITEMS.filter(x=>x.status==='cancelada');
-  let h='<div class="bar"><div class="chips">'+[['proximas','Próximas'],['pendientes','Por confirmar'],['hoy','Hoy'],['pasadas','Pasadas'],['canceladas','Canceladas']].map(([k,l])=>'<button type="button" data-f="'+k+'"'+(filt===k?' class="on"':'')+'>'+l+'</button>').join('')+'</div>';
-  h+='<button class="btn" type="button" id="nw">+ Nueva cita</button></div>';
+  let h='<div class="bar"><div class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><label for="q" class="hp">Buscar citas</label><input class="i" id="q" type="search" enterkeyhint="search" autocomplete="off" placeholder="Buscar por nombre o teléfono" value="'+esc(Q)+'"></div><button class="btn" type="button" id="nw">+ Nueva cita</button></div>';
   if(!CFG.resend)h+='<div class="msg e" style="margin:0 0 16px">Los correos todavía no están activos: falta la clave de Resend en Cloudflare. Las citas funcionan igual.</div>';
-  if(!list.length)h+='<div class="empty">'+({proximas:'No hay citas próximas. Cuando una clienta reserve, aparecerá aquí.',pendientes:'No tienes citas por confirmar.',hoy:'No hay citas hoy.',pasadas:'Todavía no hay citas pasadas.',canceladas:'No hay citas canceladas.'})[filt]+'</div>';
-  let last='';
+  h+='<p class="cnt" id="cnt" aria-live="polite"></p><div id="lst"></div>';
+  $('app').innerHTML=h;
+  $('q').addEventListener('input',e=>{Q=e.target.value;confirmDel=0;renderList()});
+  $('nw').addEventListener('click',()=>editor(null));
+  renderList();
+}
+function match(x,q){
+  const w=norm(q).trim();if(!w)return true;
+  const hay=norm([x.name,x.phone,x.email,x.service,x.notes,code(x.id),ST[x.status],longDate(x.date),x.date].join(' '));
+  const dq=q.replace(/\D/g,'');
+  return w.split(/\s+/).every(p=>hay.includes(p))||(dq.length>=4&&(x.phone||'').replace(/\D/g,'').includes(dq));
+}
+function group(list){
+  let h='',last='';
   for(const x of list){
     if(x.date!==last){last=x.date;const n=list.filter(y=>y.date===x.date).length;h+='<h3 class="day">'+esc(longDate(x.date))+(x.date===TODAY?' <span class="tg">Hoy</span>':x.date===addDays(TODAY,1)?' <span class="tg">Mañana</span>':'')+' <small>'+n+(n===1?' cita':' citas')+'</small></h3>'}
     h+=card(x);
   }
-  $('app').innerHTML=h;
-  $('app').querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>{filt=b.dataset.f;confirmDel=0;renderCitas()}));
-  $('nw').addEventListener('click',()=>editor(null));
-  $('app').querySelectorAll('[data-a]').forEach(b=>b.addEventListener('click',()=>act2(b.dataset.a,+b.dataset.id)));
+  return h;
+}
+function renderList(){
+  if(!$('lst'))return;
+  const l=ITEMS.filter(x=>match(x,Q));
+  const up=l.filter(x=>x.date>=TODAY).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  const past=l.filter(x=>x.date<TODAY).sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));
+  const pend=ITEMS.filter(x=>x.status==='pendiente'&&x.date>=TODAY).length;
+  $('cnt').textContent=Q.trim()?l.length+(l.length===1?' resultado':' resultados')+' para «'+Q.trim()+'»':ITEMS.length+(ITEMS.length===1?' cita':' citas')+(pend?' · '+pend+' por confirmar':'');
+  let h='';
+  if(!l.length)h='<div class="empty">'+(Q.trim()?'Ninguna cita coincide con «'+esc(Q.trim())+'». Prueba con otro nombre o con el teléfono.':'Todavía no hay citas. Cuando una clienta reserve, aparecerá aquí.')+'</div>';
+  else{
+    h+=up.length?group(up):(Q.trim()?'':'<div class="empty">No hay citas próximas.</div>');
+    if(past.length)h+='<h3 class="sec">Citas pasadas</h3>'+group(past);
+  }
+  $('lst').innerHTML=h;
+  $('lst').querySelectorAll('[data-a]').forEach(b=>b.addEventListener('click',()=>act2(b.dataset.a,+b.dataset.id)));
 }
 function card(x){
   const end=hmOf(minOf(x.time)+x.dur),ph=(x.phone||'').replace(/\D/g,''),waNum=ph.startsWith('0')?'58'+ph.slice(1):ph;
   const msg='Hola '+x.name.split(' ')[0]+', te escribe Madelane de Madelane Nails sobre tu cita del '+longDate(x.date)+' a las '+f12(x.time)+' ('+x.service+').';
+  const B=(k,l,c)=>'<button type="button" class="btn '+(c||'alt')+' sm" data-a="'+k+'" data-id="'+x.id+'">'+l+'</button>';
+  const live=x.status==='pendiente'||x.status==='confirmada';
   let a='';
-  if(x.status==='pendiente')a+='<button class="btn ok sm" data-a="confirmar" data-id="'+x.id+'">✓ Confirmar</button>';
-  if(x.status==='confirmada'&&x.date<=TODAY)a+='<button class="btn ok sm" data-a="completar" data-id="'+x.id+'">Completada</button><button class="btn alt sm" data-a="noasistio" data-id="'+x.id+'">No asistió</button>';
-  if(x.status==='cancelada'||x.status==='no_asistio')a+='<button class="btn alt sm" data-a="reactivar" data-id="'+x.id+'">Reactivar</button>';
-  a+='<button class="btn alt sm" data-a="editar" data-id="'+x.id+'">Editar / mover</button>';
+  if(x.status==='pendiente')a+=B('confirmar','✓ Confirmar','ok');
+  if(x.status==='confirmada'&&x.date<=TODAY)a+=B('completar','Completada','ok')+B('noasistio','No asistió');
+  if(x.status==='completada')a+=B('otra','Agendar otra','ok');
+  if(x.status!=='completada')a+=B('reagendar','Reagendar');
+  a+=B('cambiar','Cambiar cita');
   if(waNum)a+='<a class="btn wa sm" target="_blank" rel="noopener" href="https://wa.me/'+waNum+'?text='+encodeURIComponent(msg)+'">'+WA_SVG+' WhatsApp</a>';
   a+='<span class="sep"></span>';
-  if(x.status==='pendiente'||x.status==='confirmada')a+='<button class="btn dg sm" data-a="cancelar" data-id="'+x.id+'">Cancelar</button>';
-  a+='<button class="btn dg sm" data-a="borrar" data-id="'+x.id+'" aria-label="Eliminar">Eliminar</button>';
+  if(live)a+=B('cancelar','Cancelar','dg');
+  a+=B('borrar','Eliminar','dg');
   return '<div class="ap st-'+x.status+'"><div class="tm">'+esc(f12(x.time))+'<small>a '+esc(f12(end))+'</small></div>'+
   '<div class="who"><div class="nm">'+esc(x.name)+'</div><div class="sv">'+esc(x.service)+'</div><div class="ct">'+(x.phone?'<a href="tel:'+esc(x.phone)+'">'+esc(x.phone)+'</a>':'')+(x.email?'<a href="mailto:'+esc(x.email)+'">'+esc(x.email)+'</a>':'')+'<span>'+code(x.id)+(x.source==='admin'?' · creada por ti':'')+'</span></div>'+(x.notes?'<div class="nt">'+esc(x.notes)+'</div>':'')+'</div>'+
   '<div class="side"><span class="pill p-'+x.status+'">'+ST[x.status]+'</span></div>'+
@@ -295,22 +322,25 @@ function act2(a,id){
   else if(a==='completar')setStatus(id,'completada','Marcada como completada');
   else if(a==='noasistio')setStatus(id,'no_asistio','Marcada como no asistió');
   else if(a==='reactivar')setStatus(id,'confirmada','Cita reactivada y confirmada');
-  else if(a==='editar')editor(x);
-  else if(a==='borrar'){confirmDel=id;renderCitas()}
-  else if(a==='nodel'){confirmDel=0;renderCitas()}
+  else if(a==='editar'||a==='cambiar')editor(x);
+  else if(a==='reagendar')editor(x,{mode:'move'});
+  else if(a==='otra')editor(null,{name:x.name,phone:x.phone,email:x.email,service:x.service});
+  else if(a==='borrar'){confirmDel=id;renderList()}
+  else if(a==='nodel'){confirmDel=0;renderList()}
   else if(a==='sidel'){confirmDel=0;api('/api/admin/appointments/'+id,{method:'DELETE'}).then(r=>{toast(r.ok?'Cita eliminada':(r.error||'No se pudo eliminar'));reload()})}
 }
 
 // ---------- editor ----------
 function editor(x,pre){
   const isNew=!x,svcs=CFG.services;
-  const s0=x?x.service:svcs[0].n,d0=x?x.date:(pre&&pre.date||TODAY),t0=x?x.time:(pre&&pre.time||''),dur0=x?x.dur:(svcs[0].dur||60);
+  pre=pre||{};const move=!!x&&pre.mode==='move';
+  const s0=x?x.service:(pre.service||svcs[0].n),d0=x?x.date:(pre.date||TODAY),t0=x?x.time:(pre.time||''),dur0=x?x.dur:((svcs.find(s=>s.n===s0)||svcs[0]).dur||60);
   const known=svcs.some(s=>s.n===s0);
   const m=document.createElement('div');m.className='modal';m.setAttribute('role','dialog');m.setAttribute('aria-modal','true');
-  m.innerHTML='<div class="sheet"><h2>'+(isNew?'Nueva cita':'Editar cita '+code(x.id))+'</h2><p style="margin:0;color:var(--stone);font-size:15px">'+(isNew?'Queda confirmada al guardar.':'Si cambias el día o la hora, la clienta recibe un correo con el horario nuevo.')+'</p>'+
-  '<div class="g2"><div><label class="f" for="en">Nombre</label><input class="i" id="en" value="'+esc(x?x.name:'')+'"></div>'+
-  '<div><label class="f" for="ep">Teléfono</label><input class="i" id="ep" type="tel" value="'+esc(x?x.phone:'')+'"></div>'+
-  '<div class="full"><label class="f" for="ee">Correo <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ash)">(opcional)</span></label><input class="i" id="ee" type="email" value="'+esc(x?x.email:'')+'"></div>'+
+  m.innerHTML='<div class="sheet"><h2>'+(isNew?(pre.name?'Agendar otra cita':'Nueva cita'):(move?'Reagendar':'Cambiar cita')+' '+code(x.id))+'</h2><p style="margin:0;color:var(--stone);font-size:15px">'+(isNew?'Queda confirmada al guardar.':move?(x.status==='pendiente'||x.status==='confirmada'?'Elige el nuevo día y hora. La clienta recibe un correo con el horario nuevo.':'Elige el nuevo día y hora. La cita vuelve a quedar confirmada y la clienta recibe un correo.'):'Cambia el servicio, los datos o el horario. Si cambias el día o la hora, la clienta recibe un correo.')+'</p>'+
+  '<div class="g2"><div><label class="f" for="en">Nombre</label><input class="i" id="en" value="'+esc(x?x.name:(pre.name||''))+'"></div>'+
+  '<div><label class="f" for="ep">Teléfono</label><input class="i" id="ep" type="tel" value="'+esc(x?x.phone:(pre.phone||''))+'"></div>'+
+  '<div class="full"><label class="f" for="ee">Correo <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ash)">(opcional)</span></label><input class="i" id="ee" type="email" value="'+esc(x?x.email:(pre.email||''))+'"></div>'+
   '<div><label class="f" for="es">Servicio</label><select class="i" id="es">'+svcs.map(s=>'<option'+(s.n===s0?' selected':'')+'>'+esc(s.n)+'</option>').join('')+(known?'':'<option selected>'+esc(s0)+'</option>')+'</select></div>'+
   '<div><label class="f" for="ed">Duración</label><select class="i" id="ed">'+[15,30,45,60,75,90,105,120,150,180,240].map(v=>'<option value="'+v+'"'+(v===dur0?' selected':'')+'>'+(v<60?v+' min':(v%60?Math.floor(v/60)+' h '+v%60+' min':v/60+' h'))+'</option>').join('')+'</select></div>'+
   '<div><label class="f" for="edt">Día</label><input class="i" id="edt" type="date" value="'+esc(d0)+'"></div>'+
@@ -336,7 +366,7 @@ function editor(x,pre){
   }
   loadT();
   $('esv').addEventListener('click',async()=>{
-    const body={name:$('en').value.trim(),phone:$('ep').value.trim(),email:$('ee').value.trim(),service:$('es').value,dur:+$('ed').value,date:$('edt').value,time:$('etm').value,notes:$('ex').value.trim(),notify,force};
+    const body={name:$('en').value.trim(),phone:$('ep').value.trim(),email:$('ee').value.trim(),service:$('es').value,dur:+$('ed').value,date:$('edt').value,time:$('etm').value,notes:$('ex').value.trim(),notify,force,...(move&&!(x.status==='pendiente'||x.status==='confirmada')?{status:'confirmada'}:{})};
     const b=$('esv');b.disabled=true;$('eerr').hidden=true;
     const r=await api(isNew?'/api/admin/appointments':'/api/admin/appointments/'+x.id,{method:isNew?'POST':'PATCH',body:JSON.stringify(body)});
     b.disabled=false;
@@ -347,7 +377,7 @@ function editor(x,pre){
     }
     close();toast((isNew?'Cita creada':'Cambios guardados')+emailNote(r.email));reload();
   });
-  $('en').focus();
+  (move?$('edt'):$('en')).focus();
 }
 
 // ---------- agenda ----------
@@ -395,7 +425,7 @@ async function renderAgenda(){
     const a=r.x.a,ph=(a.phone||'').replace(/\D/g,''),wn=ph.startsWith('0')?'58'+ph.slice(1):ph;
     const msg='Hola '+a.name.split(' ')[0]+', te escribe Madelane de Madelane Nails sobre tu cita del '+longDate(a.date)+' a las '+f12(a.time)+' ('+a.service+').';
     return '<div class="sl"><div class="t">'+f12(a.time)+'<small>a '+f12(hmOf(r.x.e))+'</small></div><div class="b ev st-'+a.status+'"><div class="eh"><b>'+esc(a.name)+'</b><span class="pill p-'+a.status+'">'+ST[a.status]+'</span></div><div class="es">'+esc(a.service)+' · '+esc(durTxt(+a.dur||60))+'</div>'+(a.notes?'<div class="nt">'+esc(a.notes)+'</div>':'')+
-      '<div class="ea">'+(a.status==='pendiente'?'<button type="button" class="btn ok" data-a="confirmar" data-id="'+a.id+'">✓ Confirmar</button>':'')+'<button type="button" class="btn alt" data-a="editar" data-id="'+a.id+'">Editar / mover</button>'+(wn?'<a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/'+wn+'?text='+encodeURIComponent(msg)+'">'+WA_SVG+' WhatsApp</a>':'')+'</div></div></div>';
+      '<div class="ea">'+(a.status==='pendiente'?'<button type="button" class="btn ok" data-a="confirmar" data-id="'+a.id+'">✓ Confirmar</button>':'')+'<button type="button" class="btn alt" data-a="reagendar" data-id="'+a.id+'">Reagendar</button><button type="button" class="btn alt" data-a="cambiar" data-id="'+a.id+'">Cambiar cita</button>'+(wn?'<a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/'+wn+'?text='+encodeURIComponent(msg)+'">'+WA_SVG+' WhatsApp</a>':'')+'</div></div></div>';
   }).join('');
   const lab=(calSel===TODAY?'Hoy · ':calSel===tm?'Mañana · ':'')+longDate(calSel);
   const sum=(dl.length?dl.length+(dl.length===1?' cita':' citas'):'Sin citas')+(h[0]?' · '+libres+(libres===1?' espacio libre':' espacios libres'):' · Día cerrado')+(dl.some(a=>a.status==='pendiente')?' · alguna por confirmar':'');
