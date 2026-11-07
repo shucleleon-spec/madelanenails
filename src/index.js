@@ -13,6 +13,9 @@ const TRAP_LIMIT = 3;          // trampas activadas en 24 h antes de bloquear la
 const MAX_PENDING_PER_PERSON = 2;
 const DAILY_HOUR = 19;         // 7 p. m. de Caracas: recordatorios a las clientas y resumen de mañana a Madelane
 const SESSION_HOURS = 12;
+const TERMS_VERSION = "Términos y Privacidad del 2026-11-07"; // cambiar si se actualizan las páginas legales
+const KEEP_DAYS = 730;          // las citas se borran 2 años después de su fecha (Política de privacidad)
+const KEEP_IP_DAYS = 90;        // la IP de seguridad se borra a los 90 días
 
 // Valores iniciales. Madelane puede cambiarlos desde el panel admin.
 const DEF = {
@@ -228,6 +231,10 @@ async function daily(env) {
     }
   }
   await mailOwnerDigest(env, c, tm, rows);
+  // Conservación de datos según la Política de privacidad
+  await env.DB.prepare("UPDATE appointments SET ip=NULL WHERE ip IS NOT NULL AND created_at < datetime('now', ?)").bind("-" + KEEP_IP_DAYS + " days").run();
+  await env.DB.prepare("DELETE FROM appointments WHERE date < ?").bind(addDays(d, -KEEP_DAYS)).run();
+  await env.DB.prepare("DELETE FROM trampas WHERE ts < ?").bind(Date.now() - 7 * 864e5).run();
 }
 
 // ---------- sesión del panel ----------
@@ -297,6 +304,7 @@ export default {
         if (await trapBlocked(env, ip)) return out({ ok: true, id: 0 });
         if (b.website) { await trapHit(env, ip, "campo-trampa"); return out({ ok: true, id: 0 }); }
         if (!(+b.ft >= MIN_FILL_MS)) { await trapHit(env, ip, "muy-rapido"); return out({ ok: true, id: 0 }); }
+        if (b.acepto !== true) return out({ ok: false, error: "Para reservar, acepta los Términos y la Política de privacidad." }, 400);
         if (!(await human(env, b.turnstile, ip))) return out({ ok: false, error: "No pudimos verificar que eres una persona. Recarga la página e intenta de nuevo." }, 400);
         const c = await cfg(env), a = readAppt(b, c), s = svcOf(c, a.service);
         if (s) a.dur = s.dur;
@@ -310,7 +318,7 @@ export default {
         if (!(await freeTimes(env, c, a.date, a.dur, 0)).includes(a.time)) return out({ ok: false, error: "Ese horario ya no está disponible. Elige otro." }, 409);
         let id;
         try {
-          const r = await env.DB.prepare("INSERT INTO appointments(name,phone,email,service,notes,date,time,dur,status,source,ip) VALUES(?,?,?,?,?,?,?,?,'pendiente','web',?)").bind(a.name, a.phone, a.email, a.service, a.notes, a.date, a.time, a.dur, ip).run();
+          const r = await env.DB.prepare("INSERT INTO appointments(name,phone,email,service,notes,date,time,dur,status,source,ip,terms) VALUES(?,?,?,?,?,?,?,?,'pendiente','web',?,?)").bind(a.name, a.phone, a.email, a.service, a.notes, a.date, a.time, a.dur, ip, TERMS_VERSION + " · " + new Date().toISOString()).run();
           id = r.meta.last_row_id;
         } catch (e) {
           if (String(e).includes("UNIQUE")) return out({ ok: false, error: "Ese horario ya no está disponible. Elige otro." }, 409);
