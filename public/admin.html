@@ -210,7 +210,6 @@ const ST={pendiente:'Pendiente',confirmada:'Confirmada',cancelada:'Cancelada',co
 const WA_SVG='<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.3 2.5 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>';
 let calSel='',calMo=null,LOADED_FROM='',TOK='',CFG=null,ITEMS=[],TODAY='',filt='proximas',notify=true,confirmDel=0,tab='citas';
 try{const t=localStorage.getItem('mn_tok');if(t&&+t.split('.')[0]>Date.now())TOK=t}catch(e){}
-try{notify=localStorage.getItem('mn_notify')!=='0'}catch(e){}
 
 function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),3200)}
 async function api(p,o={}){
@@ -247,17 +246,14 @@ function show(t){tab=t;document.querySelectorAll('#tabs button').forEach(b=>b.cl
 // ---------- citas ----------
 function renderCitas(){
   const act=x=>x.status==='pendiente'||x.status==='confirmada';
-  const pend=ITEMS.filter(x=>x.status==='pendiente'&&x.date>=TODAY).length;
-  const hoy=ITEMS.filter(x=>x.date===TODAY&&act(x)).length,man=ITEMS.filter(x=>x.date===addDays(TODAY,1)&&act(x)).length;
   let list=ITEMS;
   if(filt==='proximas')list=ITEMS.filter(x=>x.date>=TODAY&&act(x));
   else if(filt==='pendientes')list=ITEMS.filter(x=>x.status==='pendiente'&&x.date>=TODAY);
   else if(filt==='hoy')list=ITEMS.filter(x=>x.date===TODAY);
   else if(filt==='pasadas')list=ITEMS.filter(x=>x.date<TODAY).reverse();
   else if(filt==='canceladas')list=ITEMS.filter(x=>x.status==='cancelada');
-  let h='<div class="stats"><button class="stat'+(pend?' warn':'')+'" data-f="pendientes"><b>'+pend+'</b><span>Por confirmar</span></button><button class="stat" data-f="hoy"><b>'+hoy+'</b><span>Citas hoy</span></button><button class="stat" data-f="proximas"><b>'+man+'</b><span>Citas mañana</span></button></div>';
-  h+='<div class="bar"><div class="chips">'+[['proximas','Próximas'],['pendientes','Por confirmar'],['hoy','Hoy'],['pasadas','Pasadas'],['canceladas','Canceladas']].map(([k,l])=>'<button type="button" data-f="'+k+'"'+(filt===k?' class="on"':'')+'>'+l+'</button>').join('')+'</div>';
-  h+='<label class="chk"><input type="checkbox" id="ntf"'+(notify?' checked':'')+'> Avisar por correo a la clienta</label><button class="btn" type="button" id="nw">+ Nueva cita</button></div>';
+  let h='<div class="bar"><div class="chips">'+[['proximas','Próximas'],['pendientes','Por confirmar'],['hoy','Hoy'],['pasadas','Pasadas'],['canceladas','Canceladas']].map(([k,l])=>'<button type="button" data-f="'+k+'"'+(filt===k?' class="on"':'')+'>'+l+'</button>').join('')+'</div>';
+  h+='<button class="btn" type="button" id="nw">+ Nueva cita</button></div>';
   if(!CFG.resend)h+='<div class="msg e" style="margin:0 0 16px">Los correos todavía no están activos: falta la clave de Resend en Cloudflare. Las citas funcionan igual.</div>';
   if(!list.length)h+='<div class="empty">'+({proximas:'No hay citas próximas. Cuando una clienta reserve, aparecerá aquí.',pendientes:'No tienes citas por confirmar.',hoy:'No hay citas hoy.',pasadas:'Todavía no hay citas pasadas.',canceladas:'No hay citas canceladas.'})[filt]+'</div>';
   let last='';
@@ -267,7 +263,6 @@ function renderCitas(){
   }
   $('app').innerHTML=h;
   $('app').querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>{filt=b.dataset.f;confirmDel=0;renderCitas()}));
-  $('ntf').addEventListener('change',e=>{notify=e.target.checked;try{localStorage.setItem('mn_notify',notify?'1':'0')}catch(err){}});
   $('nw').addEventListener('click',()=>editor(null));
   $('app').querySelectorAll('[data-a]').forEach(b=>b.addEventListener('click',()=>act2(b.dataset.a,+b.dataset.id)));
 }
