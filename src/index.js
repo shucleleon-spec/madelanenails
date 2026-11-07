@@ -130,7 +130,7 @@ async function mail(env, to, subject, html, text, replyTo) {
 const shell = (body) => `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#271f2b">
 <div style="background:#faf6f9;padding:18px 22px;text-align:center;border-bottom:2px solid #c09dcb"><img src="${LOGO}" width="120" height="114" alt="Madelane Nails" style="display:block;margin:0 auto;width:120px;height:auto;border:0;color:#76607b;font-size:20px"></div>
 <div style="padding:24px;border:1px solid #e7dde6;border-top:0">${body}</div>
-<p style="text-align:center;font-size:12px;color:#8b8090;margin:14px 0">Madelane Nails · Manicurista · Pampatar, Isla de Margarita</p></div>`;
+<p style="text-align:center;font-size:12px;color:#8b8090;margin:14px 0">Madelane Nails · Manicurista · Pampatar, Isla de Margarita<br><a href="https://www.instagram.com/madelane.nails" style="color:#76607b">Instagram @madelane.nails</a></p></div>`;
 const row = (k, v) => `<tr><td style="padding:8px 16px 8px 0;color:#5a4c5f;white-space:nowrap;vertical-align:top">${k}</td><td style="padding:8px 0"><b>${esc(v)}</b></td></tr>`;
 const table = (a, extra = "") => `<table style="width:100%;border-collapse:collapse;font-size:15px;border-top:1px solid #e7dde6;margin:10px 0">${row("Servicio", a.service)}${row("Fecha", longDate(a.date))}${row("Hora", f12(a.time))}${extra}</table>`;
 const btn = (href, label, bg = "#76607b") => `<a href="${href}" style="display:inline-block;background:${bg};color:#fff;text-decoration:none;padding:12px 24px;border-radius:99px;font-weight:bold;font-size:14px">${label}</a>`;

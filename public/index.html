@@ -152,6 +152,8 @@ details p{margin:0 0 26px;color:var(--stone);font-size:17px;max-width:56ch}
 .pill:hover{border-color:var(--plum);transform:translateY(-2px)}
 .pill .ic{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;background:var(--wa)}
 .pill .ic svg{width:20px;height:20px;fill:currentColor}
+.pill .ic.ig{background:var(--plum)}
+.pill .ic.ig svg{fill:none}
 .pill .tx{display:flex;flex-direction:column;min-width:0;line-height:1.3}
 .pill .l{font:700 11px/1.2 var(--sans);letter-spacing:1px;text-transform:uppercase;color:var(--ash)}
 .pill .v{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
@@ -166,6 +168,7 @@ details p{margin:0 0 26px;color:var(--stone);font-size:17px;max-width:56ch}
 footer{padding:0 0 calc(44px + env(safe-area-inset-bottom,0px));color:var(--mute);font-size:14px}
 footer .in::before{content:"";display:block;height:1px;background:rgba(255,255,255,.16);margin-bottom:28px}
 footer p{margin:0}
+footer a{color:var(--lav-soft)}
 .fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
 .fab svg{width:30px;height:30px;fill:#fff}
 @media(max-width:600px){body{font-size:17px}.hero-s .lead{font-size:22px}.card{padding:22px}.hero-s .row .btn{flex:1 1 100%}}
@@ -247,7 +250,7 @@ footer p{margin:0}
     <details><summary>¿Qué diferencia hay entre polygel, softgel y jellytips?</summary><p>El polygel se moldea sobre la uña para reforzarla o alargarla. El softgel y los jellytips son tips de gel suave que se adhieren a tu uña para alargarla de forma ligera y rápida. Si no sabes cuál te conviene, escríbeme y te oriento.</p></details>
     <details><summary>¿Para qué sirve la nivelación rubber?</summary><p>La base rubber es flexible y algo más gruesa: nivela la superficie y refuerza la uña natural, ideal si tus uñas son finas o se quiebran.</p></details>
     <details><summary>¿Puedo ir con esmalte puesto?</summary><p>Sí. El retiro de esmalte o recubrimiento cuesta $1 adicional.</p></details>
-    <details><summary>¿Haces diseños?</summary><p>Sí, diseños y efectos desde $1 hasta $2, según lo que elijas. Puedes mandarme una foto de referencia.</p></details>
+    <details><summary>¿Haces diseños?</summary><p>Sí, diseños y efectos desde $1 hasta $2, según lo que elijas. Puedes mandarme una foto de referencia o ver mis trabajos en <a href="https://www.instagram.com/madelane.nails" target="_blank" rel="noopener">Instagram @madelane.nails</a>.</p></details>
     <details><summary>¿Dónde atiendes?</summary><p>En Pampatar, Isla de Margarita. La ubicación exacta te la envío por mensaje al confirmar tu cita.</p></details>
   </div>
 </div></section>
@@ -259,6 +262,7 @@ footer p{margin:0}
   <div class="cg2">
     <div class="card"><h3>Escríbeme</h3>
       <a class="pill" id="cWa" target="_blank" rel="noopener" href="https://wa.me/584141887538"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.3 2.5 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></span><span class="tx"><span class="l">WhatsApp</span><span class="v">0414-1887538</span></span></a>
+      <a class="pill" target="_blank" rel="noopener" href="https://www.instagram.com/madelane.nails"><span class="ic ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span><span class="tx"><span class="l">Instagram</span><span class="v">@madelane.nails</span></span></a>
       <a class="btn" href="/reservar" style="width:100%;margin:6px 0 4px">Agendar en línea</a>
       <div class="addr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span><b>Pampatar, Isla de Margarita</b><br>La ubicación exacta te llega por mensaje al confirmar.</span></div>
     </div>
@@ -267,7 +271,7 @@ footer p{margin:0}
     </div>
   </div>
 </div></section>
-<footer><div class="in"><p>© <span id="yr">2026</span> Madelane Nails · Manicurista · Pampatar</p></div></footer>
+<footer><div class="in"><p>© <span id="yr">2026</span> Madelane Nails · Manicurista · Pampatar · <a href="https://www.instagram.com/madelane.nails" target="_blank" rel="noopener">Instagram @madelane.nails</a></p></div></footer>
 </div>
 
 <a class="fab" id="fab" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" href="https://wa.me/584141887538"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.3 2.5 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
