@@ -5,6 +5,7 @@
 const TZ = "America/Caracas";
 const SITE = "https://madelanenails.com";
 const FROM = "Madelane Nails <citas@madelanenails.com>";
+const REPLY_TO = "info@madelanenails.com"; // las respuestas de las clientas llegan al Hotmail de Madelane (Email Routing)
 const LOGO = SITE + "/imagenes/logo.png";
 const STATUS = ["pendiente", "confirmada", "cancelada", "completada", "no_asistio"];
 const ACTIVE = ["pendiente", "confirmada"];
@@ -151,7 +152,7 @@ ${table(a, p ? row("Precio", p) : "")}
 <p style="text-align:center;margin:20px 0">${btn(waLink(c, "Hola Madelane, agendé una cita (" + code(a.id) + ") para el " + longDate(a.date) + " a las " + f12(a.time) + "."), "Escribirme por WhatsApp", "#25a244")}</p>
 <p>¡Nos vemos pronto!<br><b>Madelane</b></p>${codeLine(a)}`);
   const text = `Hola ${a.name},\n\nRecibí tu solicitud de cita y está pendiente de confirmación.\n\nServicio: ${a.service}\nFecha: ${longDate(a.date)}\nHora: ${f12(a.time)}${p ? "\nPrecio: " + p : ""}\n\nTe escribiré por WhatsApp para confirmarla y enviarte la ubicación exacta en Pampatar.\nWhatsApp: ${c.waShow}\n\nNúmero de cita: ${code(a.id)}\nMadelane Nails`;
-  return mail(env, a.email, `Recibí tu solicitud de cita (${code(a.id)}) - Madelane Nails`, html, text, owner(env, c));
+  return mail(env, a.email, `Recibí tu solicitud de cita (${code(a.id)}) - Madelane Nails`, html, text, REPLY_TO);
 }
 // A la clienta, cuando Madelane confirma (o crea la cita desde el panel).
 function mailConfirmed(env, a, c) {
@@ -164,7 +165,7 @@ ${table(a, p ? row("Precio", p) : "")}
 <p style="text-align:center;margin:20px 0">${btn(waLink(c, "Hola Madelane, sobre mi cita " + code(a.id) + "."), "Escribirme por WhatsApp", "#25a244")}</p>
 <p>¡Te espero!<br><b>Madelane</b></p>${codeLine(a)}`);
   const text = `Hola ${a.name},\n\n¡Tu cita está confirmada!\n\nServicio: ${a.service}\nFecha: ${longDate(a.date)}\nHora: ${f12(a.time)}${p ? "\nPrecio: " + p : ""}\n\nLa ubicación exacta en Pampatar te la envío por WhatsApp (${c.waShow}).\nSi necesitas cambiar la cita, avísame con al menos 24 horas de anticipación.\n\nNúmero de cita: ${code(a.id)}\nMadelane Nails`;
-  return mail(env, a.email, `Tu cita está confirmada (${code(a.id)}) - Madelane Nails`, html, text, owner(env, c));
+  return mail(env, a.email, `Tu cita está confirmada (${code(a.id)}) - Madelane Nails`, html, text, REPLY_TO);
 }
 function mailCancelled(env, a, c) {
   const html = shell(`<p style="font-size:16px">Hola ${esc(a.name)},</p>
@@ -173,7 +174,7 @@ function mailCancelled(env, a, c) {
 <p style="text-align:center;margin:20px 0">${btn(SITE + "/reservar", "Agendar otra cita")}</p>
 <p><b>Madelane</b></p>${codeLine(a)}`);
   const text = `Hola ${a.name},\n\nTu cita fue cancelada.\n\nServicio: ${a.service}\nFecha: ${longDate(a.date)}\nHora: ${f12(a.time)}\n\nPara agendar otra fecha: ${SITE}/reservar o WhatsApp ${c.waShow}.\n\nNúmero de cita: ${code(a.id)}\nMadelane Nails`;
-  return mail(env, a.email, `Tu cita fue cancelada (${code(a.id)}) - Madelane Nails`, html, text, owner(env, c));
+  return mail(env, a.email, `Tu cita fue cancelada (${code(a.id)}) - Madelane Nails`, html, text, REPLY_TO);
 }
 function mailMoved(env, a, c, old) {
   const html = shell(`<p style="font-size:16px">Hola ${esc(a.name)},</p>
@@ -183,7 +184,7 @@ function mailMoved(env, a, c, old) {
 <p style="text-align:center;margin:20px 0">${btn(waLink(c, "Hola Madelane, sobre el cambio de mi cita " + code(a.id) + "."), "Escribirme por WhatsApp", "#25a244")}</p>
 <p><b>Madelane</b></p>${codeLine(a)}`);
   const text = `Hola ${a.name},\n\nTu cita cambió. Datos nuevos:\n\nServicio: ${a.service}\nFecha: ${longDate(a.date)}\nHora: ${f12(a.time)}\n\nAntes: ${longDate(old.date)} a las ${f12(old.time)}.\nWhatsApp: ${c.waShow}\n\nNúmero de cita: ${code(a.id)}\nMadelane Nails`;
-  return mail(env, a.email, `Tu cita cambió de horario (${code(a.id)}) - Madelane Nails`, html, text, owner(env, c));
+  return mail(env, a.email, `Tu cita cambió de horario (${code(a.id)}) - Madelane Nails`, html, text, REPLY_TO);
 }
 function mailReminder(env, a, c) {
   const html = shell(`<p style="font-size:16px">Hola ${esc(a.name)},</p>
@@ -192,7 +193,7 @@ function mailReminder(env, a, c) {
 <p style="text-align:center;margin:20px 0">${btn(waLink(c, "Hola Madelane, sobre mi cita de mañana (" + code(a.id) + ")."), "Escribirme por WhatsApp", "#25a244")}</p>
 <p>¡Te espero!<br><b>Madelane</b></p>${codeLine(a)}`);
   const text = `Hola ${a.name},\n\nTe recuerdo tu cita de mañana:\n\nServicio: ${a.service}\nFecha: ${longDate(a.date)}\nHora: ${f12(a.time)}\n\nSi no puedes venir, avísame por WhatsApp: ${c.waShow}\n\nNúmero de cita: ${code(a.id)}\nMadelane Nails`;
-  return mail(env, a.email, `Recordatorio: tu cita es mañana (${code(a.id)}) - Madelane Nails`, html, text, owner(env, c));
+  return mail(env, a.email, `Recordatorio: tu cita es mañana (${code(a.id)}) - Madelane Nails`, html, text, REPLY_TO);
 }
 // A Madelane, cuando llega una reserva nueva desde la web.
 function mailOwnerNew(env, a, c) {
